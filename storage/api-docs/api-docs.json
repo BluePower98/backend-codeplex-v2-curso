@@ -1,0 +1,205 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API CODEPLEX",
+        "version": "1.0"
+    },
+    "paths": {
+        "/api/auth/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "User Login",
+                "description": "Login User Here",
+                "operationId": "authLogin",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/LoginRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Login Successfully"
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/Authentication"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/UnprocessableEntity"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/InternalServerError"
+                    }
+                }
+            }
+        },
+        "/api/auth/validate-token/{token}": {
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Validate token",
+                "description": "Validate token",
+                "operationId": "authValidateToken",
+                "parameters": [
+                    {
+                        "parameter": "token",
+                        "name": "token",
+                        "in": "path",
+                        "description": "Token de autenticación",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Validate token successfully"
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/BadRequest"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/InternalServerError"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "JsonApiDefinition": {
+                "title": "JsonApiDefinition",
+                "description": "JsonApiDefinition",
+                "properties": {
+                    "environment": {
+                        "type": "string",
+                        "example": "local"
+                    },
+                    "version": {
+                        "type": "string",
+                        "example": "1.0.0"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "WPARK Api"
+                    },
+                    "summary": {
+                        "type": "string",
+                        "example": "Api for obtain information on operations within a Compound."
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "JsonApiDefinition"
+                }
+            },
+            "ValidationErrorsDefinition": {
+                "title": "ValidationErrorsDefinition",
+                "description": "ValidationErrorsDefinition",
+                "properties": {
+                    "field": {
+                        "type": "string",
+                        "example": ""
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": ""
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "ValidationErrorsDefinition"
+                }
+            },
+            "LoginRequest": {
+                "title": "Login Request",
+                "description": "Login request body data",
+                "required": [
+                    "email",
+                    "password"
+                ],
+                "properties": {
+                    "email": {
+                        "description": "Email de usuario",
+                        "type": "string",
+                        "maxLength": 255,
+                        "example": "giluchi8@gmail.com"
+                    },
+                    "password": {
+                        "description": "Contraseña del usuario",
+                        "type": "string",
+                        "maxLength": 100,
+                        "example": "secret_password"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "LoginRequest"
+                }
+            },
+            "UnauthorizedJsonContent": {
+                "title": "Unauthorized Json",
+                "description": "Unauthorized json response content",
+                "properties": {
+                    "jsonapi": {
+                        "$ref": "#/components/schemas/JsonApiDefinition"
+                    },
+                    "code": {
+                        "type": "integer",
+                        "example": "401"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "Unauthorized."
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "UnauthorizedJson"
+                }
+            }
+        },
+        "responses": {
+            "Authentication": {
+                "description": "Authentication Error."
+            },
+            "BadRequest": {
+                "description": "Bad Request Error."
+            },
+            "Forbidden": {
+                "description": "Permission Error."
+            },
+            "InternalServerError": {
+                "description": "Internal Server Error"
+            },
+            "NotFound": {
+                "description": "Resource Not Found."
+            },
+            "Unauthorized": {
+                "description": "Unauthorized Error."
+            },
+            "UnprocessableEntity": {
+                "description": "Validation Error."
+            }
+        },
+        "parameters": {
+            "id": {
+                "name": "id",
+                "in": "path",
+                "description": "id, eg; 1",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        }
+    }
+}
