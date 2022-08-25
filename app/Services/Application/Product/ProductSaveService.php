@@ -31,7 +31,6 @@ class ProductSaveService
         DB::transaction(function() use ($request) {
             $product = $this->productRepository->store($request->all());
 
-
             if ($request->has("itemPrecios")) {
 
                 // Procesar línea de precios

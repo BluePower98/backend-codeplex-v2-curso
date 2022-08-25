@@ -63,6 +63,10 @@ class ProductController extends ApiController
         return $this->datatablesResponse($results);
     }
 
+    /**
+     * @param ProductStoreRequest $request
+     * @return JsonResponse
+     */
     public function store(ProductStoreRequest $request): JsonResponse
     {
         $this->productSaveService->store($request);
