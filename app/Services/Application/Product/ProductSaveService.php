@@ -109,14 +109,6 @@ class ProductSaveService
 
         FileHelper::removeByUrl($uploadPath);
 
-//        DB::table('lo_producto_imagen')
-//            ->where([
-//                'idempresa' => $companyId,
-//                'idproducto' => $productId,
-//            ])
-//            ->delete();
-
-
         $this->productImageRepository->deleteByCriteria([
             'idempresa' => $companyId,
             'idproducto' => $productId,
@@ -135,12 +127,6 @@ class ProductSaveService
             $file->move($uploadPath, $fileName);
 
             $url = $uploadPath . $fileName;
-
-//            DB::table('lo_producto_imagen')->insert([
-//                'idempresa' => $companyId,
-//                'idproducto' => $productId,
-//                'imagen' => $url,
-//            ]);
 
             $this->productImageRepository->store([
                 'idempresa' => $companyId,
