@@ -41,7 +41,7 @@ class ProductUpdateRequest extends FormRequest
                     ->where("idtipoproducto", $this->request->get("idtipoproducto"))
                     ->whereNot("idproducto", $product->idproducto)
             ],
-            "descripcion" => "nullable|max:3000",
+            "descripcion" => "required|max:3000",
             "activo" => "nullable|string",
             "infad1" => "nullable|max:3000",
             "infad2" => "nullable|max:3000",
