@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Api\V1\Logistic\Maintainers\Product;
 
+use App\Http\Requests\Product\ProductUpdateRequest;
 use Exception;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Api\ApiController;
-use Illuminate\Support\Facades\Schema;
+use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Requests\Product\ProductStoreRequest;
 use App\Http\Requests\Product\ProductDeleteRequest;
@@ -65,6 +66,25 @@ class ProductController extends ApiController
     }
 
     /**
+     * @OA\Post(
+     *      path="/api/v1/products",
+     *      tags={"Products"},
+     *      summary="Crear Producto",
+     *      operationId="productStore",
+     *      @OA\RequestBody(
+     *        @OA\MediaType(
+     *           mediaType="multipart/form-data",
+     *           @OA\Schema(
+     *               ref="#/components/schemas/ProductStoreRequest"
+     *           ),
+     *        )
+     *      ),
+     *      @OA\Response(response=201, description="Producto creado"),
+     *      @OA\Response(response=400, ref="#/components/responses/Authentication"),
+     *      @OA\Response(response=422, ref="#/components/responses/UnprocessableEntity"),
+     *      @OA\Response(response=500, ref="#/components/responses/InternalServerError")
+     * )
+     *
      * @param ProductStoreRequest $request
      * @return JsonResponse
      */
@@ -76,11 +96,36 @@ class ProductController extends ApiController
     }
 
     /**
+     * @OA\Post(
+     *      path="/api/v1/products/{id}?_method=PUT",
+     *      tags={"Products"},
+     *      summary="Actualizar producto",
+     *      operationId="productUpdate",
+     *      @OA\Parameter(
+     *        name="id",
+     *        in="path",
+     *        description="Id de producto",
+     *        required=true
+     *      ),
+     *      @OA\RequestBody(
+     *        @OA\MediaType(
+     *           mediaType="multipart/form-data",
+     *           @OA\Schema(
+     *               ref="#/components/schemas/ProductUpdateRequest"
+     *           ),
+     *        )
+     *      ),
+     *      @OA\Response(response=201, description="Producto actualizado"),
+     *      @OA\Response(response=400, ref="#/components/responses/Authentication"),
+     *      @OA\Response(response=422, ref="#/components/responses/UnprocessableEntity"),
+     *      @OA\Response(response=500, ref="#/components/responses/InternalServerError")
+     * )
+     *
      * @param Product $product
-     * @param Request $request
+     * @param ProductUpdateRequest $request
      * @return JsonResponse
      */
-    public function update(Product $product, Request $request): JsonResponse
+    public function update(Product $product, ProductUpdateRequest $request): JsonResponse
     {
         $this->productSaveService->update($product, $request);
 

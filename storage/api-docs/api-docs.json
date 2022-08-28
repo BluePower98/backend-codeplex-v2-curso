@@ -71,6 +71,78 @@
                     }
                 }
             }
+        },
+        "/api/v1/products": {
+            "post": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Crear Producto",
+                "operationId": "productStore",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ProductStoreRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Producto creado"
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/Authentication"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/UnprocessableEntity"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/InternalServerError"
+                    }
+                }
+            }
+        },
+        "/api/v1/products/{id}?_method=PUT": {
+            "post": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Actualizar producto",
+                "operationId": "productUpdate",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id de producto",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ProductUpdateRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Producto actualizado"
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/Authentication"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/UnprocessableEntity"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/InternalServerError"
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -143,6 +215,316 @@
                 "type": "object",
                 "xml": {
                     "name": "LoginRequest"
+                }
+            },
+            "ProductStoreRequest": {
+                "title": "Product Store Request",
+                "description": "Product store request form data",
+                "required": [
+                    "idempresa",
+                    "idlinea",
+                    "idlineasub",
+                    "idtipoproducto",
+                    "codigo",
+                    "descripcion"
+                ],
+                "properties": {
+                    "idempresa": {
+                        "description": "Id de la empresa",
+                        "type": "string",
+                        "example": "1-20539782232"
+                    },
+                    "idlinea": {
+                        "description": "Id de la línea",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "idlineasub": {
+                        "description": "Id de la sub-línea",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "idtipoproducto": {
+                        "description": "Id del tipo de producto",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "idsunatt07": {
+                        "description": "Id Sunat 07",
+                        "type": "string",
+                        "maxLength": 3,
+                        "example": ""
+                    },
+                    "codigo": {
+                        "description": "Código de producto",
+                        "type": "string",
+                        "maxLength": 50,
+                        "example": "2257"
+                    },
+                    "descripcion": {
+                        "description": "Nombre o descripción del producto",
+                        "type": "string",
+                        "maxLength": 3000,
+                        "example": "Chocolates"
+                    },
+                    "activo": {
+                        "description": "¿El producto está activo?. Activo: 1, Inactivo: 0",
+                        "type": "string",
+                        "default": "1",
+                        "enum": [
+                            "1",
+                            "0"
+                        ]
+                    },
+                    "infad1": {
+                        "description": "",
+                        "type": "string",
+                        "maxLength": 3000,
+                        "example": ""
+                    },
+                    "infad2": {
+                        "description": "",
+                        "type": "string",
+                        "maxLength": 3000,
+                        "example": ""
+                    },
+                    "infad3": {
+                        "description": "",
+                        "type": "string",
+                        "maxLength": 3000,
+                        "example": ""
+                    },
+                    "porpercepcion": {
+                        "description": "",
+                        "type": "integer",
+                        "example": ""
+                    },
+                    "porisc": {
+                        "description": "",
+                        "type": "integer",
+                        "example": ""
+                    },
+                    "estadoventa": {
+                        "description": "Estado de venta. Activo: 1, Inactivo: 0",
+                        "type": "string",
+                        "default": "1",
+                        "enum": [
+                            "1",
+                            "0"
+                        ]
+                    },
+                    "escombo": {
+                        "description": "SI: 1, NO: 0",
+                        "type": "string",
+                        "default": "0",
+                        "enum": [
+                            "1",
+                            "0"
+                        ]
+                    },
+                    "icbper": {
+                        "description": "SI: 1, NO: 0",
+                        "type": "string",
+                        "default": "0",
+                        "enum": [
+                            "1",
+                            "0"
+                        ]
+                    },
+                    "urlapi": {
+                        "description": "",
+                        "type": "string",
+                        "example": ""
+                    },
+                    "itemPrecios": {
+                        "description": "Listado de precios. Debe ser un JSON convertido a string",
+                        "type": "string",
+                        "example": ""
+                    },
+                    "upload_path": {
+                        "description": "Ruta donde se almacenan las imágenes del producto",
+                        "type": "string",
+                        "example": ""
+                    },
+                    "imagen1": {
+                        "description": "Imagen nro 1",
+                        "type": "file",
+                        "example": ""
+                    },
+                    "imagen2": {
+                        "description": "Imagen nro 2",
+                        "type": "file",
+                        "example": ""
+                    },
+                    "imagen3": {
+                        "description": "Imagen nro 3",
+                        "type": "file",
+                        "example": ""
+                    },
+                    "imagen4": {
+                        "description": "Imagen nro 4",
+                        "type": "file",
+                        "example": ""
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "ProductStoreRequest"
+                }
+            },
+            "ProductUpdateRequest": {
+                "title": "Product Update Request",
+                "description": "Product update request form data",
+                "required": [
+                    "idempresa",
+                    "idlinea",
+                    "idlineasub",
+                    "idtipoproducto",
+                    "codigo",
+                    "descripcion"
+                ],
+                "properties": {
+                    "idempresa": {
+                        "description": "Id de la empresa",
+                        "type": "string",
+                        "example": "1-20539782232"
+                    },
+                    "idlinea": {
+                        "description": "Id de la línea",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "idlineasub": {
+                        "description": "Id de la sub-línea",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "idtipoproducto": {
+                        "description": "Id del tipo de producto",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "idsunatt07": {
+                        "description": "Id Sunat 07",
+                        "type": "string",
+                        "maxLength": 3,
+                        "example": ""
+                    },
+                    "codigo": {
+                        "description": "Código de producto",
+                        "type": "string",
+                        "maxLength": 50,
+                        "example": "2257"
+                    },
+                    "descripcion": {
+                        "description": "Nombre o descripción del producto",
+                        "type": "string",
+                        "maxLength": 3000,
+                        "example": "Chocolates"
+                    },
+                    "activo": {
+                        "description": "¿El producto está activo?. Activo: 1, Inactivo: 0",
+                        "type": "string",
+                        "default": "1",
+                        "enum": [
+                            "1",
+                            "0"
+                        ]
+                    },
+                    "infad1": {
+                        "description": "",
+                        "type": "string",
+                        "maxLength": 3000,
+                        "example": ""
+                    },
+                    "infad2": {
+                        "description": "",
+                        "type": "string",
+                        "maxLength": 3000,
+                        "example": ""
+                    },
+                    "infad3": {
+                        "description": "",
+                        "type": "string",
+                        "maxLength": 3000,
+                        "example": ""
+                    },
+                    "porpercepcion": {
+                        "description": "",
+                        "type": "integer",
+                        "example": ""
+                    },
+                    "porisc": {
+                        "description": "",
+                        "type": "integer",
+                        "example": ""
+                    },
+                    "estadoventa": {
+                        "description": "Estado de venta. Activo: 1, Inactivo: 0",
+                        "type": "string",
+                        "default": "1",
+                        "enum": [
+                            "1",
+                            "0"
+                        ]
+                    },
+                    "escombo": {
+                        "description": "SI: 1, NO: 0",
+                        "type": "string",
+                        "default": "0",
+                        "enum": [
+                            "1",
+                            "0"
+                        ]
+                    },
+                    "icbper": {
+                        "description": "SI: 1, NO: 0",
+                        "type": "string",
+                        "default": "0",
+                        "enum": [
+                            "1",
+                            "0"
+                        ]
+                    },
+                    "urlapi": {
+                        "description": "",
+                        "type": "string",
+                        "example": ""
+                    },
+                    "itemPrecios": {
+                        "description": "Listado de precios. Debe ser un JSON convertido a string",
+                        "type": "string",
+                        "example": ""
+                    },
+                    "upload_path": {
+                        "description": "Ruta donde se almacenan las imágenes del producto",
+                        "type": "string",
+                        "example": ""
+                    },
+                    "imagen1": {
+                        "description": "Imagen nro 1",
+                        "type": "file",
+                        "example": ""
+                    },
+                    "imagen2": {
+                        "description": "Imagen nro 2",
+                        "type": "file",
+                        "example": ""
+                    },
+                    "imagen3": {
+                        "description": "Imagen nro 3",
+                        "type": "file",
+                        "example": ""
+                    },
+                    "imagen4": {
+                        "description": "Imagen nro 4",
+                        "type": "file",
+                        "example": ""
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "ProductUpdateRequest"
                 }
             },
             "UnauthorizedJsonContent": {

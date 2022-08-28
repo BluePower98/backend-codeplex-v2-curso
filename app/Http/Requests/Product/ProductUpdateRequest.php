@@ -5,7 +5,7 @@ namespace App\Http\Requests\Product;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class ProductStoreRequest extends FormRequest
+class ProductUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,6 +24,8 @@ class ProductStoreRequest extends FormRequest
      */
     public function rules(): array
     {
+        $product = $this->route('product');
+
         return [
             "idempresa" => "required|string|exists:zg_empresas",
             "idlinea" => "required|integer|exists:lo_lineas,idlinea",
@@ -37,8 +39,9 @@ class ProductStoreRequest extends FormRequest
                 Rule::unique("lo_productos", "codigo")
                     ->where("idempresa", $this->request->get("idempresa"))
                     ->where("idtipoproducto", $this->request->get("idtipoproducto"))
+                    ->whereNot("idproducto", $product->idproducto)
             ],
-            "descripcion" => "required|max:3000",
+            "descripcion" => "nullable|max:3000",
             "activo" => "nullable|string",
             "infad1" => "nullable|max:3000",
             "infad2" => "nullable|max:3000",
