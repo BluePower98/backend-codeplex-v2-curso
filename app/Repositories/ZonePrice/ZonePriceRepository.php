@@ -16,6 +16,42 @@ class ZonePriceRepository extends BaseRepository implements ZonePriceRepositoryI
         parent::__construct($model);
     }
 
+
+    /**
+     * Crear nueva zona de precios.
+     *
+     * @param array $params
+     * @return void
+     */
+    public function store(array $params): void
+    {
+        DB::select(
+            'Exec Lo_Man_lo_zonasprecios ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?',
+            [
+                'M01',
+                $params['idempresa'],
+                $params['idproducto'],
+                null,
+                $params['idzona'] ?? null,
+                $params['idmedida'] ?? null,
+                $params['idtipoprecio'] ?? null,
+                $params['codigoBarra'] ?? null,
+                $params['precioVenta'] ?? null,
+                $params['cantidadMinVen'] ?? null,
+                $params['incluidoIgv'] ?? null,
+                $params['defecto'] ?? null,
+                null,
+                $params['peso_kg'] ?? null,
+                $params['idpropiedad1'] ?? null,
+                $params['idpropiedad2'] ?? null,
+                $params['idpropiedad3'] ?? null,
+                $params['costo'] ?? null,
+                $params['utilidad_porcen'] ?? null,
+                $params['precio_minimo'] ?? null,
+            ]
+        );
+    }
+
     /**
      * @param int $productId
      * @param string $companyId

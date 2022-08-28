@@ -51,6 +51,8 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     }
 
     /**
+     * Crear producto.
+     *
      * @param array $params
      * @return Product
      */
@@ -58,10 +60,33 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     {
         $params["idproducto"] = $this->getLastId($params["idempresa"]);
 
+        $params = $this->mapParamsStoreOrUpdate($params);
+
         return $this->model->query()->create($params);
     }
 
     /**
+     * Actualizar producto.
+     *
+     * @param int $productId
+     * @param array $params
+     * @return void
+     */
+    public function update(int $productId, array $params): void
+    {
+        $params = $this->mapParamsStoreOrUpdate($params);
+
+        $this->model->query()
+            ->where([
+                ["idproducto", "=", $productId],
+                ["idempresa", "=", $params['idempresa']],
+            ])
+            ->update($params);
+    }
+
+    /**
+     * Obtener id de nuevo producto.
+     *
      * @param string $companyId
      * @return int
      */
@@ -72,6 +97,31 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
             ->latest("idproducto")->first("idproducto");
 
         return (int) $product->idproducto + 1;
+    }
+
+    /**
+     * @param array $params
+     * @return array
+     */
+    private function mapParamsStoreOrUpdate(array $params): array
+    {
+        if (array_key_exists('activo', $params)) {
+            $params['activo'] = (bool) $params['activo'];
+        }
+
+        if (array_key_exists('estadoventa', $params)) {
+            $params['estadoventa'] = (bool) $params['estadoventa'];
+        }
+
+        if (array_key_exists('escombo', $params)) {
+            $params['escombo'] = (bool) $params['escombo'];
+        }
+
+        if (array_key_exists('icbper', $params)) {
+            $params['icbper'] = (bool) $params['icbper'];
+        }
+
+        return $params;
     }
 
     /**

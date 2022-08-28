@@ -7,6 +7,7 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Api\ApiController;
+use Illuminate\Support\Facades\Schema;
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Requests\Product\ProductStoreRequest;
 use App\Http\Requests\Product\ProductDeleteRequest;
@@ -71,7 +72,19 @@ class ProductController extends ApiController
     {
         $this->productSaveService->store($request);
 
-        return $this->showMessage("Producto registrado", Response::HTTP_CREATED);
+        return $this->showMessage("Producto registrado.", Response::HTTP_CREATED);
+    }
+
+    /**
+     * @param Product $product
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function update(Product $product, Request $request): JsonResponse
+    {
+        $this->productSaveService->update($product, $request);
+
+        return $this->successResponse('Producto actualizado.');
     }
 
     /**

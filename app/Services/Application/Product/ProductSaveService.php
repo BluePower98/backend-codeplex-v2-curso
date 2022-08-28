@@ -3,26 +3,34 @@
 namespace App\Services\Application\Product;
 
 use App\Helpers\FileHelper;
+use App\Models\Product;
 use App\Repositories\ProductImage\ProductImageRepositoryInterface;
+use App\Repositories\ZonePrice\ZonePriceRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\Product\ProductRepositoryInterface;
+use Illuminate\Support\Facades\Schema;
 
 class ProductSaveService
 {
     private ProductRepositoryInterface $productRepository;
     private ProductImageRepositoryInterface $productImageRepository;
+    private ZonePriceRepositoryInterface $zonePriceRepository;
 
     public function __construct(
         ProductRepositoryInterface $productRepository,
         ProductImageRepositoryInterface $productImageRepository,
+        ZonePriceRepositoryInterface $zonePriceRepository
     )
     {
         $this->productRepository = $productRepository;
         $this->productImageRepository = $productImageRepository;
+        $this->zonePriceRepository = $zonePriceRepository;
     }
 
     /**
+     * Crear producto.
+     *
      * @param Request $request
      * @return void
      */
@@ -31,64 +39,65 @@ class ProductSaveService
         DB::transaction(function() use ($request) {
             $product = $this->productRepository->store($request->all());
 
-            if ($request->has("itemPrecios")) {
-
-                // Procesar línea de precios
-                $prices = json_decode($request->get("itemPrecios"), true) ?: [];
-
-                $prices = array_map(function($price) use ($product) {
-                    return array_merge($price, [
-                        "idempresa" => $product->idempresa,
-                        "idproducto" => $product->idproducto,
-                    ]);
-                }, $prices);
-
-                $this->saveProductPricesLine($prices);
-            }
-
-            // Procesar imágenes del producto.
-            $images = $request->only(['imagen1', 'imagen2', 'imagen3', 'imagen4']);
-
-            $this->saveProductImages($request, $images, $product->idproducto, $product->idempresa);
+            $this->saveImagesAndProductPricesLine($product, $request);
         });
     }
 
     /**
-     * Procesar línea de precios de un producto
+     * Actualizar producto.
      *
-     * @param array $prices
+     * @param Product $product
+     * @param Request $request
      * @return void
      */
-    private function saveProductPricesLine(array $prices): void
+    public function update(Product $product, Request $request): void
     {
-        foreach ($prices as $price) {
+        DB::transaction(function() use ($request, $product) {
+            $columns = Schema::getColumnListing($product->getTable());
 
-            DB::select(
-                'Exec Lo_Man_lo_zonasprecios ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?',
-                [
-                    'M01',
-                    $price["idempresa"],
-                    $price["idproducto"],
-                    null,
-                    $price['idzona'] ?? null,
-                    $price['idmedida'] ?? null,
-                    $price['idtipoprecio'] ?? null,
-                    $price['codigoBarra'] ?? null,
-                    $price['precioVenta'] ?? null,
-                    $price['cantidadMinVen'] ?? null,
-                    $price['incluidoIgv'] ?? null,
-                    $price['defecto'] ?? null,
-                    null,
-                    $price['peso_kg'] ?? null,
-                    $price['idpropiedad1'] ?? null,
-                    $price['idpropiedad2'] ?? null,
-                    $price['idpropiedad3'] ?? null,
-                    $price['costo'] ?? null,
-                    $price['utilidad_porcen'] ?? null,
-                    $price['precio_minimo'] ?? null,
-                ]
-            );
+            $productId = $product->{$product->getKeyName()};
+
+            $this->productRepository->update($productId, $request->only($columns));
+
+            $product = $this->productRepository->findOneOrFailByCriteria([
+                "idproducto" => $productId,
+                "idempresa" => $request->get('idempresa')
+            ]);
+
+            $this->saveImagesAndProductPricesLine($product, $request);
+        });
+    }
+
+    /**
+     * @param Product $product
+     * @param Request $request
+     * @return void
+     */
+    private function saveImagesAndProductPricesLine(Product $product, Request $request): void
+    {
+        $productId = $product->idproducto;
+        $companyId = $product->idempresa;
+
+        if ($request->has("itemPrecios")) {
+
+            // Procesar línea de precios
+            $prices = json_decode($request->get("itemPrecios"), true) ?: [];
+
+            $this->zonePriceRepository->delete($productId, $companyId);
+
+            foreach ($prices as $price) {
+
+                $price['idempresa'] = $companyId;
+                $price['idproducto'] = $productId;
+
+                $this->zonePriceRepository->store($price);
+            }
         }
+
+        // Procesar imágenes del producto.
+        $images = $request->only(['imagen1', 'imagen2', 'imagen3', 'imagen4']);
+
+        $this->saveProductImages($request, $images, $productId, $companyId);
     }
 
 

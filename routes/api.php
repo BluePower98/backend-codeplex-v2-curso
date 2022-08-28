@@ -106,6 +106,7 @@ Route::group([
             Route::post('/generate-code', [ProductController::class, 'generateCode'])->name("products.generate-code");
             Route::post('/datatables', [ProductController::class, 'datatables'])->name("products.datatables");
             Route::post('/', [ProductController::class, 'store'])->name("products.store");
+            Route::put('/{product}', [ProductController::class, 'update'])->name("products.update");
             Route::delete('/{product}', [ProductController::class, 'delete'])->name("products.delete");
             Route::get('/{product}/companies/{company}/zones-prices', [ProductCompanyZonePriceController::class, 'index'])->name("products.companies.zones-prices");
         });

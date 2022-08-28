@@ -19,6 +19,11 @@ class ProductCompanyZonePriceController extends ApiController
         $this->zonePriceService = $zonePriceService;
     }
 
+    /**
+     * @param Product $product
+     * @param Company $company
+     * @return JsonResponse
+     */
     public function index(Product $product, Company $company): JsonResponse
     {
         $results = $this->zonePriceService->findAllByProductAndCompany(

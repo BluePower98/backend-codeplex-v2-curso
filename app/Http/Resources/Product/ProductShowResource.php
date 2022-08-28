@@ -24,14 +24,14 @@ class ProductShowResource extends JsonResource
             "idsunatt07" => $this->idsunatt07,
             "codigo" => $this->codigo,
             "descripcion" => $this->descripcion,
-            "activo" => $this->activo,
+            "activo" => (bool) $this->activo,
             "infad1" => $this->infad1,
             "infad2" => $this->infad2,
             "infad3" => $this->infad3,
             "porpercepcion" => $this->porpercepcion,
             "porisc" => $this->porisc,
-            "estadoventa" => $this->estadoventa,
-            "escombo" => $this->escombo,
+            "estadoventa" => (bool) $this->estadoventa,
+            "escombo" => (bool) $this->escombo,
             "imagen1" => $this->imagen1,
             "imagen2" => $this->imagen2,
             "imagen3" => $this->imagen3,
@@ -39,7 +39,7 @@ class ProductShowResource extends JsonResource
             "idsubcategoria" => $this->idsubcategoria,
             "wikimart" => $this->wikimart,
             "xls" => $this->xls,
-            "icbper" => $this->icbper,
+            "icbper" => (bool) $this->icbper,
             "images" => $this->includeImages()
         ];
     }

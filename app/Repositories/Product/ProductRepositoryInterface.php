@@ -18,4 +18,6 @@ interface ProductRepositoryInterface extends BaseRepositoryInterface
     public function delete(int $productId, string $companyId): void;
 
     public function store(array $params): Product;
+
+    public function update(int $productId, array $params): void;
 }
