@@ -35,7 +35,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get("/environments", function() {
-
     return response()->json(config('app'));
 });
 
