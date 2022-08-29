@@ -25,12 +25,12 @@ class RegisterRequest extends FormRequest
     {
         return [
             "idplan" => "required",
-            "nombre" => "required",
-            "email" => "required|email|unique:zg_usuarios,loglogin",
+            "nombre" => "required|max:100",
+            "email" => "required|email|unique:zg_usuarios,loglogin|max:50",
             "password" => "required|min:6",
             "ruc" => "required|only_numbers|min:11|max:11|unique:zg_empresas,ruc",
-            "razon" => "required",
-            "telefono" => "required|only_numbers"
+            "razon" => "required|max:100",
+            "telefono" => "required|only_numbers|max:100"
         ];
     }
 

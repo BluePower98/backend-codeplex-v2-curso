@@ -10,8 +10,7 @@
                 "tags": [
                     "Auth"
                 ],
-                "summary": "User Login",
-                "description": "Login User Here",
+                "summary": "Iniciar sesión",
                 "operationId": "authLogin",
                 "requestBody": {
                     "required": true,
@@ -25,7 +24,7 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Login Successfully"
+                        "description": "Inicio de sesión válido"
                     },
                     "400": {
                         "$ref": "#/components/responses/Authentication"
@@ -39,13 +38,97 @@
                 }
             }
         },
+        "/api/auth/me": {
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Obtener información de usuario autenticado",
+                "operationId": "authMe",
+                "responses": {
+                    "200": {
+                        "description": "Información de usuario obtenida"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/InternalServerError"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/auth/register": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Registrar usuario",
+                "operationId": "authRegister",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RegisterRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Información de usuario obtenida"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/UnprocessableEntity"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/InternalServerError"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/auth/logout": {
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Cerrar sesión",
+                "operationId": "authLogout",
+                "responses": {
+                    "200": {
+                        "description": "Sesión cerrada correctamente"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/InternalServerError"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
         "/api/auth/validate-token/{token}": {
             "get": {
                 "tags": [
                     "Auth"
                 ],
-                "summary": "Validate token",
-                "description": "Validate token",
+                "summary": "Validar token",
                 "operationId": "authValidateToken",
                 "parameters": [
                     {
@@ -61,15 +144,20 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Validate token successfully"
+                        "description": "Token validado"
                     },
-                    "400": {
-                        "$ref": "#/components/responses/BadRequest"
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
                     },
                     "500": {
                         "$ref": "#/components/responses/InternalServerError"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
             }
         },
         "/api/v1/products": {
@@ -215,6 +303,67 @@
                 "type": "object",
                 "xml": {
                     "name": "LoginRequest"
+                }
+            },
+            "RegisterRequest": {
+                "title": "Register Request",
+                "description": "Register request body data",
+                "required": [
+                    "idplan",
+                    "nombre",
+                    "email",
+                    "password",
+                    "ruc",
+                    "razon",
+                    "telefono"
+                ],
+                "properties": {
+                    "idplan": {
+                        "description": "Id del plan contratado por la empresa",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "nombre": {
+                        "description": "Nombre de usuario",
+                        "type": "string",
+                        "maxLength": 100,
+                        "example": "donpepito"
+                    },
+                    "email": {
+                        "description": "Email de la empresa",
+                        "type": "string",
+                        "maxLength": 50,
+                        "example": "empresa@gmail.com"
+                    },
+                    "password": {
+                        "description": "Contraseña de acceso al sistema para la empresa",
+                        "type": "string",
+                        "minLength": 6,
+                        "example": "secret"
+                    },
+                    "ruc": {
+                        "description": "RUC de la empresa",
+                        "type": "string",
+                        "maxLength": 11,
+                        "minLength": 11,
+                        "example": "10201239871"
+                    },
+                    "razon": {
+                        "description": "Razón social de la empresa",
+                        "type": "string",
+                        "maxLength": 100,
+                        "example": "Don Pepito SA"
+                    },
+                    "telefono": {
+                        "description": "Teléfono de la empresa",
+                        "type": "string",
+                        "maxLength": 100,
+                        "example": "963896712"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "RegisterRequest"
                 }
             },
             "ProductStoreRequest": {
@@ -581,6 +730,14 @@
                 "schema": {
                     "type": "integer"
                 }
+            }
+        },
+        "securitySchemes": {
+            "sanctum": {
+                "type": "http",
+                "description": "Laravel Sanctum token authentication",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
             }
         }
     }

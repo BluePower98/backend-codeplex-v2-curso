@@ -11,6 +11,7 @@ use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Controllers\Api\ApiController;
 use Illuminate\Auth\AuthenticationException;
 use App\Services\Application\Auth\AuthService;
+use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Contracts\Foundation\Application;
 
@@ -28,20 +29,17 @@ class AuthController extends ApiController
      * @OA\Post(
      *      path="/api/auth/login",
      *      tags={"Auth"},
-     *      summary="User Login",
-     *      description="Login User Here",
+     *      summary="Iniciar sesión",
      *      operationId="authLogin",
      *      @OA\RequestBody(
      *          required=true,
      *          @OA\JsonContent(ref="#/components/schemas/LoginRequest")
      *      ),
-     *      @OA\Response(response=200, description="Login Successfully"),
+     *      @OA\Response(response=200, description="Inicio de sesión válido"),
      *      @OA\Response(response=400, ref="#/components/responses/Authentication"),
      *      @OA\Response(response=422, ref="#/components/responses/UnprocessableEntity"),
      *      @OA\Response(response=500, ref="#/components/responses/InternalServerError")
      * )
-     *
-     * Start session.
      *
      * @param LoginRequest $request
      * @return JsonResponse
@@ -55,7 +53,16 @@ class AuthController extends ApiController
     }
 
     /**
-     * Get the authenticated User.
+     * @OA\Get(
+     *      path="/api/auth/me",
+     *      tags={"Auth"},
+     *      summary="Obtener información de usuario autenticado",
+     *      operationId="authMe",
+     *      security={{"sanctum": {}}},
+     *      @OA\Response(response=200, description="Información de usuario obtenida"),
+     *      @OA\Response(response=401, ref="#/components/responses/Unauthorized"),
+     *      @OA\Response(response=500, ref="#/components/responses/InternalServerError")
+     * )
      *
      * @return JsonResponse
      */
@@ -67,7 +74,21 @@ class AuthController extends ApiController
     }
 
     /**
-     * Register new User.
+     * @OA\Post(
+     *      path="/api/auth/register",
+     *      tags={"Auth"},
+     *      summary="Registrar usuario",
+     *      operationId="authRegister",
+     *      security={{"sanctum": {}}},
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(ref="#/components/schemas/RegisterRequest")
+     *      ),
+     *      @OA\Response(response=200, description="Información de usuario obtenida"),
+     *      @OA\Response(response=422, ref="#/components/responses/UnprocessableEntity"),
+     *      @OA\Response(response=500, ref="#/components/responses/InternalServerError")
+     * )
+     *
      *
      * @param RegisterRequest $request
      * @return JsonResponse
@@ -96,7 +117,16 @@ class AuthController extends ApiController
     }
 
     /**
-     * Log the user out (Invalidate the token).
+     * @OA\Get(
+     *      path="/api/auth/logout",
+     *      tags={"Auth"},
+     *      summary="Cerrar sesión",
+     *      operationId="authLogout",
+     *      security={{"sanctum": {}}},
+     *      @OA\Response(response=200, description="Sesión cerrada correctamente"),
+     *      @OA\Response(response=401, ref="#/components/responses/Unauthorized"),
+     *      @OA\Response(response=500, ref="#/components/responses/InternalServerError")
+     * )
      *
      * @return JsonResponse
      */
@@ -112,9 +142,9 @@ class AuthController extends ApiController
      * @OA\Get(
      *      path="/api/auth/validate-token/{token}",
      *      tags={"Auth"},
-     *      summary="Validate token",
-     *      description="Validate token",
+     *      summary="Validar token",
      *      operationId="authValidateToken",
+     *      security={{"sanctum": {}}},
      *      @OA\Parameter(
      *          parameter="token",
      *          name="token",
@@ -123,8 +153,8 @@ class AuthController extends ApiController
      *          in="path",
      *          @OA\Schema(type="string")
      *      ),
-     *      @OA\Response(response=200, description="Validate token successfully"),
-     *      @OA\Response(response=400, ref="#/components/responses/BadRequest"),
+     *      @OA\Response(response=200, description="Token validado"),
+     *      @OA\Response(response=401, ref="#/components/responses/Unauthorized"),
      *      @OA\Response(response=500, ref="#/components/responses/InternalServerError")
      * )
      *
