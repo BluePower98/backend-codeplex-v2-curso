@@ -20,9 +20,5 @@ class ProductImageRepository extends BaseRepository implements ProductImageRepos
     public function store(array $params): ProductImage
     {
         return $this->model->query()->create($params);
-
-
-        // TODO: pruebas
-        // TODO: otra prueba
     }
 }
