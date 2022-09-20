@@ -92,7 +92,7 @@ return [
             'options' => [
                 PDO::ATTR_STRINGIFY_FETCHES => false,
                 // OJO: no comentar porque aqui evita traer cadena cuando en sql su campo es numerico.
-                // PDO::SQLSRV_ATTR_FETCHES_NUMERIC_TYPE => true
+                PDO::SQLSRV_ATTR_FETCHES_NUMERIC_TYPE => true
             ]
             // 'encrypt' => env('DB_ENCRYPT', 'yes'),
             // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
