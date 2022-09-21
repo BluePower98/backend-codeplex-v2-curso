@@ -17,6 +17,7 @@ use App\Http\Controllers\Api\V1\Month\MonthController;
 use App\Http\Controllers\Api\V1\Plan\PlanController;
 use App\Http\Controllers\Api\V1\Sunatt07TypeAffectation\Sunatt07TypeAffectationController;
 use App\Http\Controllers\Api\V1\User\UserCompanyController;
+use App\Http\Controllers\Api\V1\User\UserController;
 use App\Http\Controllers\Api\V1\User\UserModuleController;
 use App\Http\Controllers\Api\V1\Year\YearController;
 use App\Http\Controllers\Api\V1\ZonePriceType\ZonePriceTypeController;
@@ -94,6 +95,9 @@ Route::group([
         ], function() {
             Route::get('/{user}/companies', [UserCompanyController::class, 'index']);
             Route::get('/{user}/modules', [UserModuleController::class, 'index']);
+            Route::put('/token', [UserController::class, 'updateToken']);
+            Route::get('/{user}/token', [UserController::class,'showtoken']);
+
         });
 
         // Products

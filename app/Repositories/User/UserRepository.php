@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use App\Helpers\QueryHelper;
 
 class UserRepository implements UserRepositoryInterface
 {
@@ -113,5 +114,31 @@ class UserRepository implements UserRepositoryInterface
     public function hello(): string
     {
         return "Hola Luiggi";
+    }
+
+    public function updateToken(array $param):void
+    {
+        // dd(($params['idusuario'])?$params['idusuario']:'');
+        $procedureDefinitions = QueryHelper::generateSyntaxPHPToProcedureParams(15);
+        $params = QueryHelper::mergeValuesFromProcedureParams(['M04'], $procedureDefinitions);
+        $countParams = count($params);
+        $params[$countParams - 14] =($param['idusuario'])?$param['idusuario']:'';
+        $params[$countParams - 2] =($param['token_beta'])?$param['token_beta']:'';
+        $params[$countParams - 1] =($param['token_estable'])?$param['token_estable']:'';
+        $result=DB::statement("EXEC Man_zg_usuarios {$procedureDefinitions}",$params);
+
+    }
+
+    public function showtoken(string $iduser):array
+    {
+        
+        $procedureDefinitions = QueryHelper::generateSyntaxPHPToProcedureParams(15);
+        $params = QueryHelper::mergeValuesFromProcedureParams(['S03'], $procedureDefinitions);
+        $countParams = count($params);
+        $params[$countParams - 14] =$iduser;
+
+        $result=DB::select("EXEC Man_zg_usuarios {$procedureDefinitions}",$params);
+        // dd($result);
+        return $result;
     }
 }

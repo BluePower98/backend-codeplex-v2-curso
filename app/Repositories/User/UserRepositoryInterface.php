@@ -19,4 +19,8 @@ interface UserRepositoryInterface
     public function generateVerificationEmailCode(User $user): void;
 
     public function hello(): string;
+
+    public function updateToken(array $params):void;
+
+    public function showtoken(string $iduser):array;
 }
