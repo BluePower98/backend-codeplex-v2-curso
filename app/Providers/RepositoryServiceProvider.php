@@ -6,6 +6,10 @@ use App\Repositories\Branch\BranchRepository;
 use App\Repositories\Branch\BranchRepositoryInterface;
 use App\Repositories\Company\CompanyRepository;
 use App\Repositories\Company\CompanyRepositoryInterface;
+use App\Repositories\CompanyApi\CompanyApiRepository;
+use App\Repositories\CompanyApi\CompanyApiRepositoryInterface;
+use App\Repositories\Comprobante\ComprobanteRepository;
+use App\Repositories\Comprobante\ComprobanteRepositoryInterface;
 use App\Repositories\Inventory\InventoryRepository;
 use App\Repositories\Inventory\InventoryRepositoryInterface;
 use App\Repositories\Line\LineRepository;
@@ -20,6 +24,8 @@ use App\Repositories\ModuleMenuVideo\ModuleMenuVideoRepository;
 use App\Repositories\ModuleMenuVideo\ModuleMenuVideoRepositoryInterface;
 use App\Repositories\Month\MonthRepository;
 use App\Repositories\Month\MonthRepositoryInterface;
+use App\Repositories\Parameter\ParameterRepository;
+use App\Repositories\Parameter\ParameterRepositoryInterface;
 use App\Repositories\PasswordReset\PasswordResetRepository;
 use App\Repositories\PasswordReset\PasswordResetRepositoryInterface;
 use App\Repositories\PersonalAccessToken\PersonalAccessTokenRepository;
@@ -36,10 +42,18 @@ use App\Repositories\ProductImage\ProductImageRepository;
 use App\Repositories\ProductImage\ProductImageRepositoryInterface;
 use App\Repositories\SubLine\SubLineRepository;
 use App\Repositories\SubLine\SubLineRepositoryInterface;
+use App\Repositories\Sunat01MethodPayment\Sunat01MethodPaymentRepository;
+use App\Repositories\Sunat01MethodPayment\Sunat01MethodPaymentRepositoryInterface;
+use App\Repositories\Sunatt04Monedas\Sunatt04MonedasRepository;
+use App\Repositories\Sunatt04Monedas\Sunatt04MonedasRepositoryInterface;
 use App\Repositories\Sunatt07TypeAffectation\Sunatt07TypeAffectationRepository;
 use App\Repositories\Sunatt07TypeAffectation\Sunatt07TypeAffectationRepositoryInterface;
+use App\Repositories\Ubigeo\UbigeoRepository;
+use App\Repositories\Ubigeo\UbigeoRepositoryInterface;
 use App\Repositories\User\UserRepository;
 use App\Repositories\User\UserRepositoryInterface;
+use App\Repositories\Ventasenc\VentasencRepository;
+use App\Repositories\Ventasenc\VentasencRepositoryInterface;
 use App\Repositories\Year\YearRepository;
 use App\Repositories\Year\YearRepositoryInterface;
 use App\Repositories\Zone\ZoneRepository;
@@ -172,6 +186,34 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             ProductImageRepositoryInterface::class,
             ProductImageRepository::class
+        );
+        $this->app->bind(
+            UbigeoRepositoryInterface::class,
+            UbigeoRepository::class
+        );
+        $this->app->bind(
+            ParameterRepositoryInterface::class,
+            ParameterRepository::class
+        );
+        $this->app->bind(
+            Sunat01MethodPaymentRepositoryInterface::class,
+            Sunat01MethodPaymentRepository::class
+        );
+        $this->app->bind(
+            CompanyApiRepositoryInterface::class,
+            CompanyApiRepository::class
+        );
+        $this->app->bind(
+            VentasencRepositoryInterface::class,
+            VentasencRepository::class
+        );
+        $this->app->bind(
+            Sunatt04MonedasRepositoryInterface::class,
+            Sunatt04MonedasRepository::class
+        );
+        $this->app->bind(
+            ComprobanteRepositoryInterface::class,
+            ComprobanteRepository::class
         );
     }
 }

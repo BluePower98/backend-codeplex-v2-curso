@@ -3,22 +3,31 @@
 use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\Auth\ForgotPasswordController;
 use App\Http\Controllers\Api\Auth\ResetPasswordController;
+use App\Http\Controllers\Api\V1\Branch\BranchController;
+use App\Http\Controllers\Api\V1\Company\CompanyApiController;
 use App\Http\Controllers\Api\V1\Company\CompanyLineProductTypeSubLineController;
 use App\Http\Controllers\Api\V1\Company\CompanyMeasureController;
 use App\Http\Controllers\Api\V1\Company\CompanyProductTypeLineController;
 use App\Http\Controllers\Api\V1\Company\CompanyUserBranchController;
 use App\Http\Controllers\Api\V1\Company\CompanyZoneController;
+use App\Http\Controllers\Api\V1\Company\IntegrationCompanyController;
+use App\Http\Controllers\Api\V1\Comprobante\comprobanteController;
 use App\Http\Controllers\Api\V1\Logistic\Maintainers\Product\ProductCompanyZonePriceController;
 use App\Http\Controllers\Api\V1\Logistic\Maintainers\Product\ProductController;
 use App\Http\Controllers\Api\V1\Logistic\Maintainers\ProductType\ProductTypeController;
 use App\Http\Controllers\Api\V1\Module\ModuleController;
 use App\Http\Controllers\Api\V1\Module\ModulePlanMenuController;
 use App\Http\Controllers\Api\V1\Month\MonthController;
+use App\Http\Controllers\Api\V1\Parameter\ParameterController;
 use App\Http\Controllers\Api\V1\Plan\PlanController;
+use App\Http\Controllers\Api\V1\Sunat01MethodPayment\Sunat01MethodPaymentController;
+use App\Http\Controllers\Api\V1\Sunatt04Monedas\Sunatt04MonedasController;
 use App\Http\Controllers\Api\V1\Sunatt07TypeAffectation\Sunatt07TypeAffectationController;
+use App\Http\Controllers\Api\V1\Ubigeo\UbigeoController;
 use App\Http\Controllers\Api\V1\User\UserCompanyController;
 use App\Http\Controllers\Api\V1\User\UserController;
 use App\Http\Controllers\Api\V1\User\UserModuleController;
+use App\Http\Controllers\Api\V1\Ventasenc\VentasencController;
 use App\Http\Controllers\Api\V1\Year\YearController;
 use App\Http\Controllers\Api\V1\ZonePriceType\ZonePriceTypeController;
 use Illuminate\Support\Facades\DB;
@@ -65,7 +74,6 @@ Route::group([
     'prefix' => 'v1',
 ], function() {
 
-
     // Modules
     Route::group([
         'prefix' => 'modules',
@@ -76,6 +84,8 @@ Route::group([
             'middleware' => 'auth:sanctum'
         ], function() {
             Route::get('/{module}/plans/{plan}/menu', [ModulePlanMenuController::class, 'index']);
+            Route::get('/{idplan}',[ModuleController::class,'findByPrefijoModulo']);
+
         });
     });
 
@@ -112,6 +122,8 @@ Route::group([
             Route::put('/{product}', [ProductController::class, 'update'])->name("products.update");
             Route::delete('/{product}', [ProductController::class, 'delete'])->name("products.delete");
             Route::get('/{product}/companies/{company}/zones-prices', [ProductCompanyZonePriceController::class, 'index'])->name("products.companies.zones-prices");
+            Route::get('/{companyId}/{prefijo}', [ProductController::class, 'getProductListByComapanyId']);
+
         });
 
         // Products Type
@@ -144,6 +156,61 @@ Route::group([
             Route::get('/{company}/products-types/{productType}/lines', [CompanyProductTypeLineController::class, 'index']);
             Route::get('/{company}/lines/{line}/products-types/{productType}/sub-lines', [CompanyLineProductTypeSubLineController::class, 'index']);
             Route::get('/{company}/users/{user}/sucursales', [CompanyUserBranchController::class, 'index']);
+            Route::get('/zonatable/{company}',[CompanyZoneController::class,'getZonasS04']);
+            Route::get('/combobox/{company}/{prefijo}', [CompanyZoneController::class, 'getComboBox']);
+            Route::get('/combomoneda',[Sunatt04MonedasController::class,'findAllSunatt04Moneda']);
+
+            Route::post('/datatables',[IntegrationCompanyController::class,'datatables']);
+            Route::get('/',[IntegrationCompanyController::class,'show']);
+            Route::post('/',[IntegrationCompanyController::class,'store']);
+            Route::put('/update',[IntegrationCompanyController::class,'update']);
+            Route::delete('/{company}/delete',[IntegrationCompanyController::class,'delete']);
+        });
+        // PARAMETER
+        Route::group([
+            'prefix'=>'parameter',
+        ], function(){
+            Route::get('/',[ParameterController::class,'show']);
+            Route::put('/update',[ParameterController::class,'update']);
+            Route::get('/comboSoap',[ParameterController::class,'getComboSoap']);
+            Route::get('/comboTypeSoap',[ParameterController::class,'getComboTypeSoap']);
+            Route::get('/getSistem/{parameterId}',[ParameterController::class,'getDateSistemByParameterId']);
+            Route::post('/',[ParameterController::class,'updateDateSistemByParameterId']);
+            Route::get('/methodenvio',[ParameterController::class,'getComboMethodEnvio']);
+            Route::get('/typedocument',[ParameterController::class,'gettypedocument']);
+            
+        });
+        // companiesApi
+        Route::group([
+            'prefix'=>'companiesApi',
+        ], function(){
+            Route::post('/datatables',[CompanyApiController::class,'datatable']);
+        });
+        // Sunat01MethodPayment
+        Route::group([
+            'prefix'=>'Sunat01MethodPayment',
+        ], function(){
+            Route::get('/{prefijo}',[Sunat01MethodPaymentController::class,'findAllSunat01MethodPayment']);
+        });
+        // BRANCH
+        Route::group([
+            'prefix'=>'branch',
+        ], function(){
+            Route::get('/',[BranchController::class,'show']);
+            Route::post('/datatables/{companyId}',[BranchController::class,'datatables']);
+            Route::post('/',[BranchController::class,'store']);
+            Route::put('/update',[BranchController::class,'update']);
+            Route::get('/{companyId}/{branchId}/{prefijo}',[BranchController::class,'showBranch']);
+            Route::post('/logo',[BranchController::class,'updateLogo']);
+            Route::get('/oneBranch/{companyId}/{branchId}/{prefijo}',[BranchController::class,'getOneBranchCompayIdBranchId']);
+            Route::delete('/{brachId}/{companyId}/{prefijo}',[BranchController::class,'delete']);
+            
+        });
+        // UBIGEO
+        Route::group([
+            'prefix'=>'ubigeo',
+        ], function(){
+            Route::get('/{ubigeo}',[UbigeoController::class,'findAllByUbigeoId']);
         });
 
         Route::group([
@@ -158,6 +225,24 @@ Route::group([
             Route::get('/', [Sunatt07TypeAffectationController::class, 'index']);
         });
     });
+    // Int_Proc_facturacion
+    Route::group([
+        'prefix' => 'ventasenc',
+    ], function() {
+        Route::get('/{prefijo}/{idempresa}', [VentasencController::class, 'getTipoDocumneto']);
+        Route::post('/datatables', [VentasencController::class, 'datatables']);
+        Route::get('/detallefactura', [VentasencController::class, 'getDatoListaDetalleFactura']);
+        Route::put('/quitar-habilitado-factura', [VentasencController::class, 'quitarHabilitadoFactura']);
+        Route::put('/actualizar-estado', [VentasencController::class, 'habilitarEstado']);
 
-
+    });
+    Route::group([
+        'prefix' => 'documentos',
+    ], function() {
+        Route::get('/', [comprobanteController::class, 'getComprobante']);
+        Route::get('/detalle', [comprobanteController::class, 'GetVentasDetalleId_Comprobante']);
+        Route::get('/ventapago', [comprobanteController::class, 'getVentaPagos']);
+        Route::get('/downloadXML', [comprobanteController::class, 'downloadXML']);
+        Route::get('/excel', [comprobanteController::class, 'getDatoForExcel']);
+    });
 });

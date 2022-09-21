@@ -4,6 +4,7 @@ namespace App\Repositories\Menu;
 
 use App\Models\Menu;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Collection;
 
 class MenuRepository implements MenuRepositoryInterface
 {
@@ -28,5 +29,13 @@ class MenuRepository implements MenuRepositoryInterface
             'EXEC Man_zg_global ?,?,?,?,?',
             [ 'S15', $id, null, null, null]
         );
+    }
+
+    public function findByPrefijoModulo(int $id):Collection
+    {
+        return DB::table("zg_modulos","M")
+                ->select(["M.prefijo"])
+                ->join("zg_planes AS P","M.idmodulo","=","P.idmodulo")
+                ->where("P.idplan","=",$id)->get();
     }
 }

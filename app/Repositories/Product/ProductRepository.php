@@ -152,4 +152,17 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
             ["idproducto", "=", $productId],
         ])->delete();
     }
+
+    // LISTA DE PRODUCTO ICBRPER
+    public function getProductListByComapanyId(string $companyId,string $prefijo):Collection
+    {
+        $procedureDefinitions = QueryHelper::generateSyntaxPHPToProcedureParams(2);
+
+        $params = QueryHelper::mergeValuesFromProcedureParams(['S06', $companyId], $procedureDefinitions);
+        // return DB::select("exec Lo_Man_lo_productos {$procedureDefinitions}", $params);
+
+        $result=DB::select("EXEC {$prefijo}_Man_lo_parametros {$procedureDefinitions}",$params);
+
+        return collect($result);
+    }
 }

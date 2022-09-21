@@ -28,4 +28,11 @@ class ModuleService
 
         return UserModuleResource::collection($results)->collection;
     }
+
+    public function findByPrefijoModulo(int $id):Collection
+    {
+
+        $result=$this->repository->findByPrefijoModulo($id);
+        return collect($result);
+    }
 }

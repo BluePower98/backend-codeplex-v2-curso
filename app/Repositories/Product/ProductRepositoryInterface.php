@@ -20,4 +20,7 @@ interface ProductRepositoryInterface extends BaseRepositoryInterface
     public function store(array $params): Product;
 
     public function update(int $productId, array $params): void;
+
+    public function getProductListByComapanyId(string $companyId,string $prefijo):Collection;
+
 }

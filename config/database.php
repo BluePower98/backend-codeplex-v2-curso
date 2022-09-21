@@ -97,7 +97,24 @@ return [
             // 'encrypt' => env('DB_ENCRYPT', 'yes'),
             // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
         ],
-
+        
+        'sqlsrv_facturacion' => [
+            'driver' => 'sqlsrv',
+            'url' => env('DATABASE_URL'),
+            'host' => env('DB2_HOST', 'localhost'),
+            'port' => env('DB2_PORT', '1433'),
+            'database' => env('DB2_DATABASE', 'forge'),
+            'username' => env('DB2_USERNAME', 'forge'),
+            'password' => env('DB2_PASSWORD', ''),
+            'charset' => 'utf8',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'options' => [
+                PDO::ATTR_STRINGIFY_FETCHES => false,
+                // OJO: no comentar porque aqui evita traer cadena cuando en sql su campo es numerico.
+                PDO::SQLSRV_ATTR_FETCHES_NUMERIC_TYPE => true
+            ]
+        ]
     ],
 
     /*

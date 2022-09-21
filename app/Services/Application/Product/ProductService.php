@@ -130,4 +130,10 @@ class ProductService
         }
 
     }
+
+    public function getProductListByComapanyId(string $companyId,string $prefijo):Collection
+    {
+        return $this->productRepository->getProductListByComapanyId($companyId,$prefijo);
+
+    }
 }
