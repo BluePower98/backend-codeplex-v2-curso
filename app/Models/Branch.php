@@ -11,7 +11,7 @@ class Branch extends Model
     // protected $primaryKey = ["idempresa", "idsucursal"];
     protected $primaryKey = "idsucursal";
     public $incrementing = false;
-
+    public $timestamps = false;
     protected $fillable = [
         "idempresa",
         "idsucursal",
