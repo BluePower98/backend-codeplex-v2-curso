@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1\Comprobante;
+namespace App\Http\Controllers\Api\V1\Integrador\Comprobante;
+
 
 // use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;

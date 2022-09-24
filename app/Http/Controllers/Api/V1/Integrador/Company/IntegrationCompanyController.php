@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1\Company;
+namespace App\Http\Controllers\Api\V1\Integrador\Company;
 
 use App\Http\Controllers\Api\ApiController;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Company\CompanyStoreRequest;
 use App\Http\Requests\Company\CompanyUpdateRequest;
-use App\Models\Company;
 use App\Services\Application\Company\CompanyService;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;

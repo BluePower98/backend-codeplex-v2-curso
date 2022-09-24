@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1\Sunatt04Monedas;
+namespace App\Http\Controllers\Api\V1\Integrador\Sunatt04Monedas;
+
 
 
 use Illuminate\Http\Request;

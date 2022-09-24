@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1\Branch;
+namespace App\Http\Controllers\Api\V1\Integrador\Branch;
+
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Api\ApiController;
