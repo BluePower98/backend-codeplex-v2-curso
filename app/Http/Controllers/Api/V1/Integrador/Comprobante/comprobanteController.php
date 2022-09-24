@@ -41,14 +41,23 @@ class comprobanteController extends ApiController
 
         return $this->successResponse($result);
     }
-    public function downloadXML(ComprobanteRequest $request): JsonResponse
+       /**
+     * Descargar xml de facturación electrónica.
+     *
+     * @param Request $request
+     * @throws BadRequestException
+     */
+    public function downloadXML(ComprobanteRequest $request)
     {
-        $result=$this->comprobanteservice
-        ->getNameByRuc($request->get('ruc'),
-        $request->get('date'),$request->get('filename'));
+        // dd($request->all());
+        $result = $this->comprobanteservice
+        ->getNameByRuc($request->all());
 
-        return $this->successResponse($result);
+        return response()->file($result['file'], [
+            'Content-Disposition' => 'attachment;filename="'. $result['filename'] .'"'
+        ]);
     }
+
 
     public function getDatoForExcel(Request $request): JsonResponse
     {
