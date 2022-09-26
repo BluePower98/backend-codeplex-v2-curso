@@ -14,3 +14,5 @@ yarn-error.log
 /.vscode
 annotations.txt
 .env.develop
+.env-develop-copia
+#.env.develop
