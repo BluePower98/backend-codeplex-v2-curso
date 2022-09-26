@@ -97,15 +97,15 @@ return [
             // 'encrypt' => env('DB_ENCRYPT', 'yes'),
             // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
         ],
-        
+
         'sqlsrv_facturacion' => [
             'driver' => 'sqlsrv',
             'url' => env('DATABASE_URL'),
-            'host' => env('DB2_HOST', 'localhost'),
-            'port' => env('DB2_PORT', '1433'),
-            'database' => env('DB2_DATABASE', 'forge'),
-            'username' => env('DB2_USERNAME', 'forge'),
-            'password' => env('DB2_PASSWORD', ''),
+            'host' => env('DB_FACTURACION_HOST', 'localhost'),
+            'port' => env('DB_FACTURACION_PORT', '1433'),
+            'database' => env('DB_FACTURACION_DATABASE', 'forge'),
+            'username' => env('DB_FACTURACION_USERNAME', 'forge'),
+            'password' => env('DB_FACTURACION_PASSWORD', ''),
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,
