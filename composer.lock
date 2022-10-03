@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7ce9b11dd44c6b619bb974195fb72c07",
+    "content-hash": "082682c7f65259dd99fc1620e978c7df",
     "packages": [
         {
             "name": "brick/math",
@@ -5495,16 +5495,16 @@
         },
         {
             "name": "yajra/laravel-datatables-oracle",
-            "version": "v10.0.7",
+            "version": "v10.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yajra/laravel-datatables.git",
-                "reference": "3b7f7069ea747e13c1dfd36795568485129fe62d"
+                "reference": "a311684b1e80e5ae12bef6a034a714cc4818aad8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yajra/laravel-datatables/zipball/3b7f7069ea747e13c1dfd36795568485129fe62d",
-                "reference": "3b7f7069ea747e13c1dfd36795568485129fe62d",
+                "url": "https://api.github.com/repos/yajra/laravel-datatables/zipball/a311684b1e80e5ae12bef6a034a714cc4818aad8",
+                "reference": "a311684b1e80e5ae12bef6a034a714cc4818aad8",
                 "shasum": ""
             },
             "require": {
@@ -5566,7 +5566,7 @@
             ],
             "support": {
                 "issues": "https://github.com/yajra/laravel-datatables/issues",
-                "source": "https://github.com/yajra/laravel-datatables/tree/v10.0.7"
+                "source": "https://github.com/yajra/laravel-datatables/tree/v10.1.4"
             },
             "funding": [
                 {
@@ -5574,11 +5574,15 @@
                     "type": "custom"
                 },
                 {
+                    "url": "https://github.com/yajra",
+                    "type": "github"
+                },
+                {
                     "url": "https://www.patreon.com/yajra",
                     "type": "patreon"
                 }
             ],
-            "time": "2022-05-23T10:54:52+00:00"
+            "time": "2022-09-27T00:22:05+00:00"
         },
         {
             "name": "zircote/swagger-php",
@@ -8326,8 +8330,9 @@
     "prefer-lowest": false,
     "platform": {
         "php": "^8.0.2",
-        "ext-fileinfo": "*"
+        "ext-fileinfo": "*",
+        "ext-pdo": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.1.0"
+    "plugin-api-version": "2.3.0"
 }

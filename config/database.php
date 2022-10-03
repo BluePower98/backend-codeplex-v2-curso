@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'mysql'),
+    'default' => env('DB_CONNECTION', 'sqlsrv'),
 
     /*
     |--------------------------------------------------------------------------
@@ -98,23 +98,6 @@ return [
             // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
         ],
 
-        'sqlsrv_facturacion' => [
-            'driver' => 'sqlsrv',
-            'url' => env('DATABASE_URL'),
-            'host' => env('DB_FACTURACION_HOST', 'localhost'),
-            'port' => env('DB_FACTURACION_PORT', '1433'),
-            'database' => env('DB_FACTURACION_DATABASE', 'forge'),
-            'username' => env('DB_FACTURACION_USERNAME', 'forge'),
-            'password' => env('DB_FACTURACION_PASSWORD', ''),
-            'charset' => 'utf8',
-            'prefix' => '',
-            'prefix_indexes' => true,
-            'options' => [
-                PDO::ATTR_STRINGIFY_FETCHES => false,
-                // OJO: no comentar porque aqui evita traer cadena cuando en sql su campo es numerico.
-                PDO::SQLSRV_ATTR_FETCHES_NUMERIC_TYPE => true
-            ]
-        ]
     ],
 
     /*

@@ -40,6 +40,18 @@ use App\Repositories\Product\ProductRepository;
 use App\Repositories\Product\ProductRepositoryInterface;
 use App\Repositories\ProductImage\ProductImageRepository;
 use App\Repositories\ProductImage\ProductImageRepositoryInterface;
+use App\Repositories\ModuleCourse\Alumnos\AlumnosRepository;
+use App\Repositories\ModuleCourse\Alumnos\AlumnosRepositoryInterface;
+use App\Repositories\ModuleCourse\Comments\CommentsRepository;
+use App\Repositories\ModuleCourse\Comments\CommentsRepositoryInterface;
+use App\Repositories\ModuleCourse\Courses\CoursesRepository;
+use App\Repositories\ModuleCourse\Courses\CoursesRepositoryInterface;
+use App\Repositories\ModuleCourse\Groups\GroupsRepository;
+use App\Repositories\ModuleCourse\Groups\GroupsRepositoryInterface;
+use App\Repositories\ModuleCourse\Instructors\InstructorsRepository;
+use App\Repositories\ModuleCourse\Instructors\InstructorsRepositoryInterface;
+use App\Repositories\ModuleCourse\Specialties\SpecialtiesRepository;
+use App\Repositories\ModuleCourse\Specialties\SpecialtiesRepositoryInterface;
 use App\Repositories\SubLine\SubLineRepository;
 use App\Repositories\SubLine\SubLineRepositoryInterface;
 use App\Repositories\Sunat01MethodPayment\Sunat01MethodPaymentRepository;
@@ -214,6 +226,31 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             ComprobanteRepositoryInterface::class,
             ComprobanteRepository::class
+        );
+        //Repositorios de Cursos
+        $this->app->bind(
+            AlumnosRepositoryInterface::class,
+            AlumnosRepository::class
+        );
+        $this->app->bind(
+            CommentsRepositoryInterface::class,
+            CommentsRepository::class
+        );
+        $this->app->bind(
+            CoursesRepositoryInterface::class,
+            CoursesRepository::class
+        );
+        $this->app->bind(
+            GroupsRepositoryInterface::class,
+            GroupsRepository::class
+        );
+        $this->app->bind(
+            InstructorsRepositoryInterface::class,
+            InstructorsRepository::class
+        );
+        $this->app->bind(
+            SpecialtiesRepositoryInterface::class,
+            SpecialtiesRepository::class
         );
     }
 }

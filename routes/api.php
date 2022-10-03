@@ -14,6 +14,12 @@ use App\Http\Controllers\Api\V1\Company\IntegrationCompanyController;
 use App\Http\Controllers\Api\V1\Comprobante\comprobanteController;
 use App\Http\Controllers\Api\V1\Logistic\Maintainers\Product\ProductCompanyZonePriceController;
 use App\Http\Controllers\Api\V1\Logistic\Maintainers\Product\ProductController;
+use App\Http\Controllers\Api\V1\ModuleCourse\Alumnos\AlumnoController;
+use App\Http\Controllers\Api\V1\ModuleCourse\Comments\commentsController;
+use App\Http\Controllers\Api\V1\ModuleCourse\Courses\CoursesController;
+use App\Http\Controllers\Api\V1\ModuleCourse\Groups\GroupsController;
+use App\Http\Controllers\Api\V1\ModuleCourse\Instructors\InstructorsController;
+use App\Http\Controllers\Api\V1\ModuleCourse\Specialties\SpecialtiesController;
 use App\Http\Controllers\Api\V1\Logistic\Maintainers\ProductType\ProductTypeController;
 use App\Http\Controllers\Api\V1\Module\ModuleController;
 use App\Http\Controllers\Api\V1\Module\ModulePlanMenuController;
@@ -223,6 +229,99 @@ Route::group([
             'prefix' => 'sunatt07-types-affectations',
         ], function() {
             Route::get('/', [Sunatt07TypeAffectationController::class, 'index']);
+        });
+    });
+
+    Route::group([
+        'prefix'=>'ModuleCourse-Alumno'
+    ],function(){
+
+        Route::group([
+            'middleware'=>'auth:sanctum'
+        ],function(){
+            Route::post('/datatables', [AlumnoController::class, 'datatables'])->name("alumnos.datatables");
+            Route::post('/', [AlumnoController::class, 'store'])->name("alumnos.store");
+            Route::put('/{idempresa}/{idalumno}', [AlumnoController::class, 'update'])->name("alumnos.update");
+            Route::delete('/{idempresa}/{idalumno}', [AlumnoController::class, 'delete'])->name("alumnos.delete");
+            Route::get('/{idempresa}/{idalumno}', [AlumnoController::class, 'show'])->name("alumnos.show");
+        });
+    });
+
+    Route::group([
+        'prefix'=>'ModuleCourse-Comments'
+    ],function(){
+
+        Route::group([
+            'middleware'=>'auth:sanctum'
+        ],function(){
+            Route::post('/datatables', [commentsController::class, 'datatables'])->name("comments.datatables");
+            Route::post('/', [commentsController::class, 'store'])->name("comments.store");
+            Route::put('/{idempresa}/{idcomentarios}', [commentsController::class, 'update'])->name("comments.update");
+            Route::delete('/{idempresa}/{idcomentarios}', [commentsController::class, 'delete'])->name("comments.delete");
+            Route::get('/{idempresa}/{idcomentarios}', [commentsController::class, 'show'])->name("comments.show");
+        });
+    });
+
+    Route::group([
+        'prefix'=>'ModuleCourse-Courses'
+    ],function(){
+
+        Route::group([
+            'middleware'=>'auth:sanctum'
+        ],function(){
+            Route::post('/datatables', [CoursesController::class, 'datatables'])->name("courses.datatables");
+            Route::post('/', [CoursesController::class, 'store'])->name("courses.store");
+            Route::put('/{idempresa}/{idcurso}', [CoursesController::class, 'update'])->name("courses.update");
+            Route::delete('/{idempresa}/{idcurso}', [CoursesController::class, 'delete'])->name("courses.delete");
+            Route::get('/{idempresa}/{idcurso}', [CoursesController::class, 'show'])->name("courses.show");
+            Route::get('/{idempresa}', [CoursesController::class, 'getEspecialidades'])->name("courses.getEspecialidades");
+        });
+    });
+
+    Route::group([
+        'prefix'=>'ModuleCourse-Groups'
+    ],function(){
+
+        Route::group([
+            'middleware'=>'auth:sanctum'
+        ],function(){
+            Route::post('/datatables', [GroupsController::class, 'datatables'])->name("groups.datatables");
+            Route::post('/', [GroupsController::class, 'store'])->name("groups.store");
+            Route::put('/{idempresa}/{idgrupo}', [GroupsController::class, 'update'])->name("groups.update");
+            Route::delete('/{idempresa}/{idgrupo}', [GroupsController::class, 'delete'])->name("groups.delete");
+            Route::get('/{idempresa}/{idgrupo}', [GroupsController::class, 'show'])->name("groups.show");
+            Route::get('/{idempresa}', [GroupsController::class, 'getCursos'])->name("groups.getCursos");
+            Route::get('/', [GroupsController::class, 'getMondedas'])->name("groups.getMondedas");
+        });
+    });
+
+    Route::group([
+        'prefix'=>'ModuleCourse-Instructors'
+    ],function(){
+
+        Route::group([
+            'middleware'=>'auth:sanctum'
+        ],function(){
+            Route::post('/datatables', [InstructorsController::class, 'datatables'])->name("instructors.datatables");
+            Route::post('/', [InstructorsController::class, 'store'])->name("instructors.store");
+            Route::put('/{idempresa}/{idinstructor}', [InstructorsController::class, 'update'])->name("instructors.update");
+            Route::delete('/{idempresa}/{idinstructor}', [InstructorsController::class, 'delete'])->name("instructors.delete");
+            Route::get('/{idempresa}/{idinstructor}', [InstructorsController::class, 'show'])->name("instructors.show");
+        });
+    });
+
+    Route::group([
+        'prefix'=>'ModuleCourse-Specialties'
+    ],function(){
+
+        Route::group([
+            'middleware'=>'auth:sanctum'
+        ],function(){
+            Route::post('/datatables', [SpecialtiesController::class, 'datatables'])->name("specialties.datatables");
+            Route::post('/', [SpecialtiesController::class, 'store'])->name("specialties.store");
+            Route::put('/{idempresa}/{idespecialidad}', [SpecialtiesController::class, 'update'])->name("specialties.update");
+            Route::delete('/{idempresa}/{idespecialidad}', [SpecialtiesController::class, 'delete'])->name("specialties.delete");
+            Route::get('/{idempresa}/{idespecialidad}', [SpecialtiesController::class, 'show'])->name("specialties.show");
         });
     });
     // Int_Proc_facturacion
