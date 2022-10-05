@@ -89,7 +89,7 @@ Route::group([
         ], function() {
             Route::get('/{module}/plans/{plan}/menu', [ModulePlanMenuController::class, 'index']);
             Route::get('/{idplan}',[ModuleController::class,'findByPrefijoModulo']);
-
+            Route::get('/{user}/all',[ModuleController::class,'findModuleByUserId']);
         });
     });
 

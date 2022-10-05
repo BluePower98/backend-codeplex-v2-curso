@@ -18,7 +18,10 @@ class UserModuleResource extends JsonResource
         return [
             "idmodulo" => $this->idmodulo,
             "desmodulo" => $this->desmodulo,
-            "idplan" => $this->idplan
+            "idplan" => $this->idplan,
+            "subdominio"=>$this->subdominio,
+            "descripcion"=>$this->subdominio,
+            "subdominioprod"=>$this->subdominio
         ];
     }
 }

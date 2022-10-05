@@ -11,8 +11,12 @@ class Module extends Model
 
     protected $fillable = [
         'desmodulo',
-        'activo'
+        'activo',
+        'subdominio',
+        'descripcion',
+        'subdominioprod'
     ];
+
 
     public function usesTimestamps(): bool {
         return false;

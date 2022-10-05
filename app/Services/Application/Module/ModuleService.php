@@ -22,7 +22,7 @@ class ModuleService
      * @param User $user
      * @return Collection
      */
-    public function findAllByUser(User $user): Collection
+    public function findAllByUserId(User $user): Collection
     {
         $results = $this->repository->findAllByUserId($user->getKey());
 
