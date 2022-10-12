@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Services\Application\CompanyApi;
+namespace App\Services\Application\ModuleIntegrator\CompanyApi;
 
-use App\Repositories\CompanyApi\CompanyApiRepositoryInterface;
+use App\Repositories\ModuleIntegrator\CompanyApi\CompanyApiRepositoryInterface;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;

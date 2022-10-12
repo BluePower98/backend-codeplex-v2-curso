@@ -155,10 +155,4 @@ class ProductController extends ApiController
 
         return $this->showMessage("El producto seleccionado se ha eliminado correctamente.", Response::HTTP_NO_CONTENT);
     }
-
-    public function getProductListByComapanyId(string $companyId,string $prefijo):JsonResponse
-    {
-        $result=$this->productService->getProductListByComapanyId($companyId,$prefijo);
-        return $this->successResponse($result);
-    }
 }

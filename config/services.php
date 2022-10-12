@@ -36,5 +36,14 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
-
+    'facturacion_electronica' => [
+        'server' => [
+            'host' => '54.39.149.117',
+            'username' => 'admin_codeplex',
+            'password' => 'P2sicovi8',
+            'documents' => [
+                'path_xml' => '/public_html/tufactura/cdf/xml'
+            ]
+        ]
+    ],
 ];
