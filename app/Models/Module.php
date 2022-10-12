@@ -16,6 +16,7 @@ class Module extends Model
         'subdominioprod'
     ];
 
+
     public function usesTimestamps(): bool {
         return false;
     }

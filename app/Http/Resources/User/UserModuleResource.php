@@ -20,7 +20,7 @@ class UserModuleResource extends JsonResource
             "desmodulo" => $this->desmodulo,
             "idplan" => $this->idplan,
             "subdominio"=>$this->subdominio,
-            "subdominioprod"=>$this->subdominioprod
+            "subdominioprod"=>$this->subdominio
         ];
     }
 }
