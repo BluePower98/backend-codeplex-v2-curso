@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Application\CompanyApi;
+namespace App\Services\Application\ModuleIntegrator\CompanyApi;
 
 use App\Repositories\CompanyApi\CompanyApiRepositoryInterface;
 use Illuminate\Support\Facades\Auth;

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\V1\ModuleIntegrator\Company;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Api\ApiController;
-use App\Services\Application\CompanyApi\CompanyApiService;
+use App\Services\Application\ModuleIntegrator\CompanyApi\CompanyApiService;
 
 class CompanyApiController extends ApiController
 {
