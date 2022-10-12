@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1\Ventasenc;
+namespace App\Http\Controllers\Api\V1\ModuleIntegrator\Ventasenc;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Api\ApiController;

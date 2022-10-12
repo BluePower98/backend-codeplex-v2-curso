@@ -30,34 +30,4 @@ class CompanyZoneController extends ApiController
 
         return $this->successResponse($results);
     }
-
-    public function getComboBox(Company $company,string $prefijo): JsonResponse
-    {
-        // dd('assaas',$company->getkey());
-        $result=$this->zoneService->getComboBox($company->getkey(),$prefijo);
-        // dd($result);
-        return $this->successResponse($result);
-    }
-    public function getZonasS04(Company $company):JsonResponse
-    {
-        // dd($company->getKey());
-        $result=$this->zoneService->getZonasSunat04($company->getKey());
-        return $this->successResponse($result);
-    }
-
-    public function storeUpdate(zonaRequest $request):JsonResponse
-    {
-        // dd($request);
-        $result=$this->zoneService->storeUpdate($request);
-        return $this->successResponse($result);
-    }
-
-    public function delete(string $companyId,int $zonaId):JsonResponse
-    {
-        // dd('ssdds',$companyId);
-        $result=$this->zoneService->delete($companyId,$zonaId);
-        return $this->successResponse($result,'Datos Eliminados');
-    }
-
-
 }
