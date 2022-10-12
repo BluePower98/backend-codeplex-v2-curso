@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1\Integrador\Branch;
+namespace App\Http\Controllers\Api\V1\ModuleIntegrator\Branch;
 
 
 use Illuminate\Http\Request;

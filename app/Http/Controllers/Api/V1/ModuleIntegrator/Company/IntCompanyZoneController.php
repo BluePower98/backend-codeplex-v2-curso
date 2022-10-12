@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1\Integrador\Company;
+namespace App\Http\Controllers\Api\V1\ModuleIntegrator\Company;
 
 use App\Http\Controllers\Api\ApiController;
 use App\Models\Company;

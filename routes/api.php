@@ -1,18 +1,18 @@
 <?php
-// ===============INTEGRADOR==================
-use App\Http\Controllers\Api\V1\Integrador\Branch\BranchController;
-use App\Http\Controllers\Api\V1\Integrador\Company\CompanyApiController;
-use App\Http\Controllers\Api\V1\Integrador\Company\IntCompanyZoneController;
-use App\Http\Controllers\Api\V1\Integrador\Company\IntegrationCompanyController;
-use App\Http\Controllers\Api\V1\Integrador\Comprobante\comprobanteController;
-use App\Http\Controllers\Api\V1\Integrador\Parameter\ParameterController;
-use App\Http\Controllers\Api\V1\Integrador\Product\IntProductController;
-use App\Http\Controllers\Api\V1\Integrador\Sunat01MethodPayment\Sunat01MethodPaymentController;
-use App\Http\Controllers\Api\V1\Integrador\Sunatt04Monedas\Sunatt04MonedasController;
-use App\Http\Controllers\Api\V1\Integrador\Ubigeo\UbigeoController;
-use App\Http\Controllers\Api\V1\Integrador\User\UserController;
-use App\Http\Controllers\Api\V1\Integrador\Ventasenc\VentasencController;
-// ============================================
+// MODULO INTEGRADOR
+use App\Http\Controllers\Api\V1\ModuleIntegrator\Branch\BranchController;
+use App\Http\Controllers\Api\V1\ModuleIntegrator\Company\CompanyApiController;
+use App\Http\Controllers\Api\V1\ModuleIntegrator\Company\IntCompanyZoneController;
+use App\Http\Controllers\Api\V1\ModuleIntegrator\Company\IntegrationCompanyController;
+use App\Http\Controllers\Api\V1\ModuleIntegrator\Comprobante\ComprobanteController;
+use App\Http\Controllers\Api\V1\ModuleIntegrator\Parameter\ParameterController;
+use App\Http\Controllers\Api\V1\ModuleIntegrator\Product\IntProductController;
+use App\Http\Controllers\Api\V1\ModuleIntegrator\Sunat01MethodPayment\Sunat01MethodPaymentController;
+use App\Http\Controllers\Api\V1\ModuleIntegrator\Sunatt04Monedas\Sunatt04MonedasController;
+use App\Http\Controllers\Api\V1\ModuleIntegrator\Ubigeo\UbigeoController;
+use App\Http\Controllers\Api\V1\ModuleIntegrator\User\UserController;
+use App\Http\Controllers\Api\V1\ModuleIntegrator\Ventasenc\VentasencController;
+// END MODULO INTEGRADOR
 
 use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\Auth\ForgotPasswordController;
@@ -259,11 +259,11 @@ Route::group([
             Route::group([
                 'prefix' => 'documentos',
             ], function() {
-                Route::get('/', [comprobanteController::class, 'getComprobante']);
-                Route::get('/detalle', [comprobanteController::class, 'GetVentasDetalleId_Comprobante']);
-                Route::get('/ventapago', [comprobanteController::class, 'getVentaPagos']);
-                Route::post('/downloadXML', [comprobanteController::class, 'downloadXML']);
-                Route::get('/excel', [comprobanteController::class, 'getDatoForExcel']);
+                Route::get('/', [ComprobanteController::class, 'getComprobante']);
+                Route::get('/detalle', [ComprobanteController::class, 'GetVentasDetalleId_Comprobante']);
+                Route::get('/ventapago', [ComprobanteController::class, 'getVentaPagos']);
+                Route::post('/downloadXML', [ComprobanteController::class, 'downloadXML']);
+                Route::get('/excel', [ComprobanteController::class, 'getDatoForExcel']);
             });
 
             // Int_Proc_facturacion

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1\Integrador\User;
+namespace App\Http\Controllers\Api\V1\ModuleIntegrator\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;

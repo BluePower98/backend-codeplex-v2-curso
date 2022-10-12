@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1\Integrador\Ubigeo;
+namespace App\Http\Controllers\Api\V1\ModuleIntegrator\Ubigeo;
 
 use App\Http\Controllers\Api\ApiController;
 use App\Models\Ubigeo;

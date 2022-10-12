@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1\Integrador\Parameter;
+namespace App\Http\Controllers\Api\V1\ModuleIntegrator\Parameter;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Api\ApiController;

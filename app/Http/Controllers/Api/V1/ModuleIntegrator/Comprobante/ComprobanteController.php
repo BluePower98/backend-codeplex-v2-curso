@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1\Integrador\Comprobante;
+namespace App\Http\Controllers\Api\V1\ModuleIntegrator\Comprobante;
 
 
 // use App\Http\Controllers\Controller;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1\Integrador\Sunat01MethodPayment;
+namespace App\Http\Controllers\Api\V1\ModuleIntegrator\Sunat01MethodPayment;
 
 use App\Http\Controllers\Api\ApiController;
 use App\Services\Application\Sunat01MethodPayment\Sunat01MethodPaymentService;
