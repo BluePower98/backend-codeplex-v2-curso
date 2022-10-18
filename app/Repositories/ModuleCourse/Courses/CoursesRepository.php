@@ -25,12 +25,13 @@ class CoursesRepository extends BaseRepository implements CoursesRepositoryInter
 
     public function store(array $params): Collection
     {
-        $result= DB::statement('EXEC lo_cur_cur_cursos ?,?,?,?,?,?',
+        $result= DB::statement('EXEC lo_cur_cur_cursos ?,?,?,?,?,?,?',
             ['M01',$params['idempresa'],
             isset($params['idcurso'])?$params['idcurso']:'',
             $params['idespecialidad'],
             $params['descripcion'],
-            $params['activo']]        
+            $params['activo'],
+            $params['bruchure']]        
         );
 
         return collect($result);
@@ -42,7 +43,8 @@ class CoursesRepository extends BaseRepository implements CoursesRepositoryInter
         ['M02', $idempresa,$idcurso,
         $params['idespecialidad'],
         $params['descripcion'],
-        $params['activo']]        
+        $params['activo'],
+        $params['bruchure']]        
     );
 
     return collect($result);

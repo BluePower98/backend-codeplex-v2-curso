@@ -19,7 +19,8 @@ class Courses extends Model
         "idespecialidad",
         "razonsocial",
         "descripcion",
-        "activo"
+        "activo",
+        "bruchure"
        
     ];
 }   
