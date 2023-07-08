@@ -30,6 +30,7 @@ use App\Http\Controllers\Api\V1\ModuleCourse\Courses\CoursesController;
 use App\Http\Controllers\Api\V1\ModuleCourse\Groups\GroupsController;
 use App\Http\Controllers\Api\V1\ModuleCourse\Instructors\InstructorsController;
 use App\Http\Controllers\Api\V1\ModuleCourse\Specialties\SpecialtiesController;
+use App\Http\Controllers\Api\V1\ModuleCourse\CourseDetails\CourseDetailsController;
 use App\Http\Controllers\Api\V1\Logistic\Maintainers\ProductType\ProductTypeController;
 use App\Http\Controllers\Api\V1\Module\ModuleController;
 use App\Http\Controllers\Api\V1\Module\ModulePlanMenuController;
@@ -268,6 +269,23 @@ Route::group([
             Route::put('/{idempresa}/{idespecialidad}', [SpecialtiesController::class, 'update'])->name("specialties.update");
             Route::delete('/{idempresa}/{idespecialidad}', [SpecialtiesController::class, 'delete'])->name("specialties.delete");
             Route::get('/{idempresa}/{idespecialidad}', [SpecialtiesController::class, 'show'])->name("specialties.show");
+        });
+    });
+
+    Route::group([
+        'prefix'=>'ModuleCourse-CourseDetails'
+    ],function(){
+
+        Route::group([
+            'middleware'=>'auth:sanctum'
+        ],function(){
+            Route::post('/datatables', [CourseDetailsController::class, 'datatables'])->name("coursedetails.datatables");
+            Route::post('/', [CourseDetailsController::class, 'store'])->name("coursedetails.store");
+            Route::put('/{idempresa}/{iddetallecurso}', [CourseDetailsController::class, 'update'])->name("coursedetails.update");
+            Route::delete('/{idempresa}/{iddetallecurso}', [CourseDetailsController::class, 'delete'])->name("coursedetails.delete");
+            Route::get('/{idempresa}/{iddetallecurso}', [CourseDetailsController::class, 'show'])->name("coursedetails.show");
+            Route::get('/{idempresa}', [CourseDetailsController::class, 'getCursos'])->name("coursedetails.getCursos");
+            Route::get('/{idempresa}/{idespecialidad}', [CourseDetailsController::class, 'getEspecialidades'])->name("coursedetails.getEspecialidades");
         });
     });
 

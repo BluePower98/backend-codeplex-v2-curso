@@ -28,7 +28,6 @@ class CoursesController extends ApiController
 
     public function store(Request $request): JsonResponse
     {
-        dd($request);
         $result = $this->CursosService->store($request);
 
         return $this->successResponse($result,"Curso registrado Correctamente");

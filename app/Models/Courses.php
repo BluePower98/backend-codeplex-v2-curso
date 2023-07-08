@@ -15,12 +15,10 @@ class Courses extends Model
     protected $fillable = [
         "idempresa",
         "idcurso",
-        "codigo",
         "idespecialidad",
-        "razonsocial",
         "descripcion",
-        "activo",
-        "bruchure"
+        "portada",
+        "activo"
        
     ];
 }   

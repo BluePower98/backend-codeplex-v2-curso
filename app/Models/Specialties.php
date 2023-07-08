@@ -16,6 +16,7 @@ class Specialties extends Model
         "idempresa",
         "idespecialidad",
         "descripcion",
+        "portada",
         "activo"
        
     ];

@@ -25,10 +25,11 @@ class SpecialtiesRepository extends BaseRepository implements SpecialtiesReposit
 
     public function store(array $params): Collection
     {
-        $result= DB::statement('EXEC lo_man_cur_especialidades ?,?,?,?,?',
+        $result= DB::statement('EXEC Mo_Man_cur_especialidades ?,?,?,?,?,?',
             ['M01',$params['idempresa'],
             $params['idespecialidad'],
             $params['descripcion'],
+            $params['portada'],
             $params['activo']]        
         );
 
@@ -37,9 +38,10 @@ class SpecialtiesRepository extends BaseRepository implements SpecialtiesReposit
 
     public function update(array $params, string $idempresa, int $idespecialidad): Collection
     {
-        $result= DB::statement('EXEC lo_man_cur_especialidades ?,?,?,?,?',
+        $result= DB::statement('EXEC Mo_Man_cur_especialidades ?,?,?,?,?,?',
         ['M02', $idempresa,$idespecialidad,
         $params['descripcion'],
+        $params['portada'],
         $params['activo']]        
     );
     
@@ -48,7 +50,7 @@ class SpecialtiesRepository extends BaseRepository implements SpecialtiesReposit
 
     public function delete(string $idempresa, int $idespecialidad): Collection
     {
-        $result= DB::statement('EXEC lo_man_cur_especialidades ?,?,?',
+        $result= DB::statement('EXEC Mo_Man_cur_especialidades ?,?,?',
         ['M03', $idempresa,$idespecialidad]        
     );
 
@@ -58,7 +60,7 @@ class SpecialtiesRepository extends BaseRepository implements SpecialtiesReposit
     public function show(string $idempresa, int $idespecialidad): Collection
     {
        
-        $result= DB::select('EXEC lo_man_cur_especialidades ?,?,?',
+        $result= DB::select('EXEC Mo_Man_cur_especialidades ?,?,?',
         ['S02', $idempresa,$idespecialidad]        
     );
 

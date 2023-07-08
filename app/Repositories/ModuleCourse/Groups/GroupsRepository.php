@@ -25,7 +25,7 @@ class GroupsRepository extends BaseRepository implements GroupsRepositoryInterfa
 
     public function store(array $params): Collection
     {
-        $result= DB::statement('EXEC lo_Man_cur_grupos ?,?,?,?,?,?,?,?,?,?,?,?,?',
+        $result= DB::statement('EXEC Mo_Man_cur_grupos ?,?,?,?,?,?,?,?,?,?,?,?,?',
             ['M01',$params['idempresa'],
             $params['idgrupo'],
             $params['idcurso'],
@@ -45,7 +45,7 @@ class GroupsRepository extends BaseRepository implements GroupsRepositoryInterfa
 
     public function update(array $params, string $idempresa, int $idgrupo): Collection
     {
-        $result= DB::statement('EXEC lo_Man_cur_grupos ?,?,?,?,?,?,?,?,?,?,?,?,?',
+        $result= DB::statement('EXEC Mo_Man_cur_grupos ?,?,?,?,?,?,?,?,?,?,?,?,?',
             ['M02',$idempresa,$idgrupo,
             $params['idcurso'],
             $params['nombre'],
@@ -64,7 +64,7 @@ class GroupsRepository extends BaseRepository implements GroupsRepositoryInterfa
 
     public function delete(string $idempresa, int $idgrupo): Collection
     {
-        $result= DB::statement('EXEC lo_Man_cur_grupos ?,?,?',
+        $result= DB::statement('EXEC Mo_Man_cur_grupos ?,?,?',
         ['M03', $idempresa,$idgrupo]
     );
 
@@ -74,7 +74,7 @@ class GroupsRepository extends BaseRepository implements GroupsRepositoryInterfa
     public function show(string $idempresa, int $idgrupo): Collection
     {
 
-        $result= DB::select('EXEC lo_Man_cur_grupos ?,?,?',
+        $result= DB::select('EXEC Mo_Man_cur_grupos ?,?,?',
         ['S02', $idempresa,$idgrupo]
     );
 
@@ -83,7 +83,7 @@ class GroupsRepository extends BaseRepository implements GroupsRepositoryInterfa
 
     public function getCursos(string $idempresa): Collection
     {
-      $result= DB::select('EXEC lo_Man_cur_grupos ?,?',
+      $result= DB::select('EXEC Mo_Man_cur_grupos ?,?',
       ['CB1', $idempresa]
       );
 
@@ -92,7 +92,7 @@ class GroupsRepository extends BaseRepository implements GroupsRepositoryInterfa
 
     public function getMondedas(): Collection
     {
-      $result= DB::select('EXEC lo_Man_cur_grupos ?',
+      $result= DB::select('EXEC Mo_Man_cur_grupos ?',
       ['CB2']
       );
 

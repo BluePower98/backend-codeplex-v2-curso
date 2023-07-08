@@ -52,6 +52,8 @@ use App\Repositories\ModuleCourse\Instructors\InstructorsRepository;
 use App\Repositories\ModuleCourse\Instructors\InstructorsRepositoryInterface;
 use App\Repositories\ModuleCourse\Specialties\SpecialtiesRepository;
 use App\Repositories\ModuleCourse\Specialties\SpecialtiesRepositoryInterface;
+use App\Repositories\ModuleCourse\CourseDetails\CourseDetailsRepository;
+use App\Repositories\ModuleCourse\CourseDetails\CourseDetailsRepositoryInterface;
 use App\Repositories\SubLine\SubLineRepository;
 use App\Repositories\SubLine\SubLineRepositoryInterface;
 use App\Repositories\Sunat01MethodPayment\Sunat01MethodPaymentRepository;
@@ -251,6 +253,10 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             SpecialtiesRepositoryInterface::class,
             SpecialtiesRepository::class
+        );
+        $this->app->bind(
+            CourseDetailsRepositoryInterface::class,
+            CourseDetailsRepository::class
         );
     }
 }

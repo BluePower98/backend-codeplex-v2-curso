@@ -25,13 +25,13 @@ class CoursesRepository extends BaseRepository implements CoursesRepositoryInter
 
     public function store(array $params): Collection
     {
-        $result= DB::statement('EXEC lo_cur_cur_cursos ?,?,?,?,?,?,?',
+        $result= DB::statement('EXEC Mo_Man_cur_cursos ?,?,?,?,?,?,?',
             ['M01',$params['idempresa'],
             isset($params['idcurso'])?$params['idcurso']:'',
             $params['idespecialidad'],
             $params['descripcion'],
-            $params['activo'],
-            $params['bruchure']]        
+            $params['portada'],
+            $params['activo']]        
         );
 
         return collect($result);
@@ -39,12 +39,12 @@ class CoursesRepository extends BaseRepository implements CoursesRepositoryInter
 
     public function update(array $params, string $idempresa, int $idcurso): Collection
     {
-        $result= DB::statement('EXEC lo_cur_cur_cursos ?,?,?,?,?,?',
+        $result= DB::statement('EXEC Mo_Man_cur_cursos ?,?,?,?,?,?,?',
         ['M02', $idempresa,$idcurso,
         $params['idespecialidad'],
         $params['descripcion'],
-        $params['activo'],
-        $params['bruchure']]        
+        $params['portada'],
+        $params['activo']]        
     );
 
     return collect($result);
@@ -52,7 +52,7 @@ class CoursesRepository extends BaseRepository implements CoursesRepositoryInter
 
     public function delete(string $idempresa, int $idcurso): Collection
     {
-        $result= DB::statement('EXEC lo_cur_cur_cursos ?,?,?',
+        $result= DB::statement('EXEC Mo_Man_cur_cursos ?,?,?',
         ['M03', $idempresa,$idcurso]        
     );
 
@@ -62,7 +62,7 @@ class CoursesRepository extends BaseRepository implements CoursesRepositoryInter
     public function show(string $idempresa, int $idcurso): Collection
     {
        
-        $result= DB::select('EXEC lo_cur_cur_cursos ?,?,?',
+        $result= DB::select('EXEC Mo_Man_cur_cursos ?,?,?',
         ['S02', $idempresa,$idcurso]        
     );
 
@@ -71,7 +71,7 @@ class CoursesRepository extends BaseRepository implements CoursesRepositoryInter
 
     public function getEspecialidades(string $idempresa): Collection
     {
-      $result= DB::select('EXEC lo_cur_cur_cursos ?,?',
+      $result= DB::select('EXEC Mo_Man_cur_cursos ?,?',
       ['CB1', $idempresa]
       );
 

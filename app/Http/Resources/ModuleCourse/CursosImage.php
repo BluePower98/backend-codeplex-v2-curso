@@ -11,13 +11,11 @@ class AlumnoImage extends JsonResource
     {
         return [
             "idempresa" => $this->idempresa,
-            "idalumno" => $this->idalumno,
-            "rucdni" => $this->rucdni,
-            "nombres" => $this->nombres,
-            "apellidos" => $this->apellidos,
-            "fecha_registro" => $this->fecha_registro,
+            "idcurso" => $this->idcurso,
+            "idespecialidad" => $this->idespecialidad,
+            "descripcion" => $this->descripcion,
             "activo" => $this->activo,
-            "foto" => $this->includeImages()
+            "portada" => $this->includeImages()
         ];
     }
 
@@ -30,7 +28,7 @@ class AlumnoImage extends JsonResource
         $images = [];
 
         foreach ($entryImages as $key => $image) {
-            $propertyName = "foto" . ($key + 1);
+            $propertyName = "portada" . ($key + 1);
 
             $server = env('APP_URL');
             $localFile = str_replace($server, '', $image->imagen);

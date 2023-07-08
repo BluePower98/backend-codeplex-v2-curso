@@ -27,12 +27,13 @@ class CommentsRepository extends BaseRepository implements CommentsRepositoryInt
 
     public function store(array $params): Collection
     {
-        $result= DB::statement('EXEC lo_Man_cur_comentarios ?,?,?,?,?,?',
+        $result= DB::statement('EXEC Mo_Man_cur_comentarios ?,?,?,?,?,?,?',
             ['M01',$params['idempresa'],
             $params['idcomentarios'],
             $params['email'],
             $params['mensaje'],
-            $params['fecha']]
+            $params['fecha'],
+            $params['activo']]
         );
   
         return collect($result);
@@ -40,11 +41,12 @@ class CommentsRepository extends BaseRepository implements CommentsRepositoryInt
 
     public function update(array $params, string $idempresa, int $idcomentarios): Collection
     {
-        $result= DB::statement('EXEC lo_Man_cur_comentarios ?,?,?,?,?,?',
+        $result= DB::statement('EXEC Mo_Man_cur_comentarios ?,?,?,?,?,?,?',
         ['M02', $idempresa,$idcomentarios,
         $params['email'],
         $params['mensaje'],
-        $params['fecha']]
+        $params['fecha'],
+        $params['activo']]
     );
 
     return collect($result);
@@ -52,7 +54,7 @@ class CommentsRepository extends BaseRepository implements CommentsRepositoryInt
 
     public function delete(string $idempresa, int $idcomentarios): Collection
     {
-        $result= DB::statement('EXEC lo_Man_cur_comentarios ?,?,?',
+        $result= DB::statement('EXEC Mo_Man_cur_comentarios ?,?,?',
         ['M03', $idempresa,$idcomentarios]
     );
 
@@ -62,7 +64,7 @@ class CommentsRepository extends BaseRepository implements CommentsRepositoryInt
     public function show(string $idempresa, int $idcomentarios): Collection
     {
 
-        $result= DB::select('EXEC lo_Man_cur_comentarios ?,?,?',
+        $result= DB::select('EXEC Mo_Man_cur_comentarios ?,?,?',
         ['S02', $idempresa,$idcomentarios]
     );
 

@@ -26,7 +26,7 @@ class AlumnosRepository extends BaseRepository implements AlumnosRepositoryInter
     public function store(array $params): Collection
     {
 
-        $result= DB::statement('EXEC Lo_Man_Cursos_Alumnos ?,?,?,?,?,?,?,?,?',
+        $result= DB::statement('EXEC Mo_Man_cur_alumnos ?,?,?,?,?,?,?,?,?',
         ['M01',$params['idempresa'],
         isset($params['idalumno'])?$params['idalumno']:'',
         $params['rucdni'],
@@ -44,7 +44,7 @@ class AlumnosRepository extends BaseRepository implements AlumnosRepositoryInter
 
     public function update(array $params, string $idempresa, string $idalumno): Collection
     {
-        $result= DB::statement('EXEC Lo_Man_Cursos_Alumnos ?,?,?,?,?,?,?,?,?',
+        $result= DB::statement('EXEC Mo_Man_cur_alumnos ?,?,?,?,?,?,?,?,?',
         ['M02',$idempresa,$idalumno,
         $params['rucdni'],
         $params['nombres'],
@@ -60,7 +60,7 @@ class AlumnosRepository extends BaseRepository implements AlumnosRepositoryInter
 
     public function delete(string $idempresa, string $idalumno): Collection
     {
-        $result= DB::statement('EXEC Lo_Man_Cursos_Alumnos ?,?,?',
+        $result= DB::statement('EXEC Mo_Man_cur_alumnos ?,?,?',
         ['M03', $idempresa,$idalumno]
     );
 
@@ -69,7 +69,7 @@ class AlumnosRepository extends BaseRepository implements AlumnosRepositoryInter
 
     public function show(string $idempresa, string $idalumno): Collection
     {
-        $result= DB::select('EXEC Lo_Man_Cursos_Alumnos ?,?,?',
+        $result= DB::select('EXEC Mo_Man_cur_alumnos ?,?,?',
         ['S02', $idempresa,$idalumno]
     );
         return collect($result);

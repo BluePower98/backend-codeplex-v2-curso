@@ -5,19 +5,25 @@ namespace App\Http\Resources\ModuleCourse;
 use App\Helpers\FileHelper;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class AlumnoImage extends JsonResource
+class DetalleCursoImage extends JsonResource
 {
     public function toArray($request): array
     {
         return [
             "idempresa" => $this->idempresa,
-            "idalumno" => $this->idalumno,
-            "rucdni" => $this->rucdni,
-            "nombres" => $this->nombres,
-            "apellidos" => $this->apellidos,
-            "fecha_registro" => $this->fecha_registro,
+            "iddetallecurso" => $this->iddetallecurso,
+            "idcurso" => $this->idcurso,
+            "idespecialidad" => $this->idespecialidad,
+            "idinstructor" => $this->idinstructor,
+            "detalledecurso" => $this->detalledecurso,
+            "lección" => $this->lección,
+            "cuestionarios" => $this->cuestionarios,
+            "estudiantes" => $this->estudiantes,
+            "duración" => $this->duración,
+            "certificado" => $this->certificado,
+            "whassap" => $this->whassap,
             "activo" => $this->activo,
-            "foto" => $this->includeImages()
+            "fotos" => $this->includeImages()
         ];
     }
 
@@ -30,7 +36,7 @@ class AlumnoImage extends JsonResource
         $images = [];
 
         foreach ($entryImages as $key => $image) {
-            $propertyName = "foto" . ($key + 1);
+            $propertyName = "fotos" . ($key + 1);
 
             $server = env('APP_URL');
             $localFile = str_replace($server, '', $image->imagen);

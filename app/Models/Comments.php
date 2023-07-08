@@ -17,6 +17,7 @@ class Comments extends Model
         "idcomentarios",
         "email",
         "mensaje",
-        "fecha"       
+        "fecha",
+        "activo"      
     ];
 }

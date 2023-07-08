@@ -37,6 +37,7 @@ class CommentsDatatablesQueryBuilder
             DB::raw("ISNULL(T1.email,'') AS email"),
             DB::raw("ISNULL(T1.mensaje,'') AS mensaje"),
             DB::raw("ISNULL(CONVERT(VARCHAR,T1.fecha,23),'')  AS fecha"),
+            DB::raw("ISNULL(T1.activo,'') AS activo"),
 
         ]);
 
